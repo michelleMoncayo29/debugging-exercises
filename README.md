@@ -181,6 +181,7 @@ This project is designed to be LLM-friendly. See [LLM_GUIDE.md](./LLM_GUIDE.md) 
 5. ✅ **05-bank-account-oop** - Error Lógico: Sistema bancario con clases OOP (Avanzado)
 6. ✅ **06-task-manager** - Error de Ejecución: Accesos inválidos y validaciones ausentes (Intermedio)
 7. ✅ **07-api-integration** - Error Asíncrono: fetch y JSONPlaceholder (Avanzado)
+8. ✅ **08-hotel-booking-system** - Error Lógico: Lógica de negocio y reportes financieros (Avanzado)
 
 ### Coming Soon
 
