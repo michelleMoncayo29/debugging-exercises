@@ -1,49 +1,42 @@
-# Integración con API (JSONPlaceholder)
+# Integración Avanzada con API (JSONPlaceholder)
 
-**Tipo**: Error Asíncrono / Error de Sintaxis
+**Tipo**: Error Asíncrono / Error de Lógica / Error de Sintaxis
 
 ## 📋 Historia de Usuario
 
-Como desarrollador web, necesito conectar mi aplicación con un servicio externo (JSONPlaceholder) para consumir y enviar datos de publicaciones y comentarios. Es fundamental que la comunicación sea asíncrona y maneje correctamente las respuestas del servidor.
+Como desarrollador senior, necesito crear un módulo de procesamiento de datos que no solo consulte una API externa, sino que también cruce información entre diferentes recursos (usuarios, publicaciones y comentarios) y realice cálculos estadísticos sobre el contenido (conteo de palabras, métricas de engagement) para un tablero de administración.
 
 ## 🎯 Criterios de Aceptación
 
-- **getPostById**: Debe obtener una publicación específica. Es obligatorio usar `await` para esperar la respuesta de la red y la conversión a JSON. Si el servidor responde con un error (ej. 404), la función debe lanzar una excepción.
-- **getPostComments**: Debe obtener la lista de comentarios asociados a una publicación. El código debe estar libre de errores de sintaxis básicos que impidan la carga del módulo.
-- **createPost**: Debe enviar un objeto JSON al servidor mediante el método `POST`. Se deben incluir los encabezados HTTP apropiados (`Content-type: application/json`) para que el servidor reconozca el formato de los datos.
+- **getFullPostProfile**: Debe retornar un objeto que combine la información de una publicación, los datos de su autor (nombre, email y empresa) y la lista de comentarios asociados.
+- **getTrendingPosts**: Debe filtrar las publicaciones basándose en un número mínimo de **palabras** en el cuerpo del texto. Debe retornar un máximo de 5 resultados transformados que incluyan el conteo de palabras y una etiqueta (la primera palabra del título).
+- **findUserEngagement**: Debe analizar toda la actividad de un usuario. Esto implica buscar sus publicaciones y, para cada una, recopilar todos los comentarios recibidos para identificar quiénes han interactuado con él (identificados por su email único).
+- **secureCreatePost**: Debe validar el esquema de datos antes de realizar el envío. El título no puede estar vacío (ni solo espacios) y el cuerpo debe tener una longitud mínima.
 
 ## 🛠️ Endpoints Utilizados
 
-Este ejercicio utiliza los siguientes recursos de [JSONPlaceholder](https://jsonplaceholder.typicode.com/):
-
-1. **GET `/posts/:id`**
-   - **Propósito**: Obtener el detalle de una publicación única.
-   - **Uso**: Se concatena el ID al final de la URL base.
-2. **GET `/posts/:id/comments`**
-   - **Propósito**: Listar todos los comentarios de una publicación específica.
-   - **Uso**: Útil para secciones de discusión debajo de un post.
-3. **POST `/posts`**
-   - **Propósito**: Simular la creación de un nuevo recurso en el servidor.
-   - **Requisito**: Requiere un cuerpo (body) en formato JSON y el encabezado `application/json`.
+1. **GET `/posts`**: Obtiene el listado global de publicaciones.
+2. **GET `/posts/:id`**: Obtiene el detalle de una publicación.
+3. **GET `/users/:id`**: Obtiene la información del perfil de un usuario.
+4. **GET `/posts/:id/comments`**: Obtiene los comentarios de una publicación específica.
+5. **GET `/users/:id/posts`**: Obtiene todas las publicaciones pertenecientes a un usuario.
+6. **POST `/posts`**: Simula la creación de una publicación.
 
 ## 🐛 Problema Reportado
 
-El equipo de integración reporta que el módulo de API no funciona en absoluto:
+El módulo está fallando en producción con errores de lógica y colapsos de red:
 
-1. El código ni siquiera carga en el navegador/consola debido a un error de puntuación.
-2. Al intentar obtener una publicación, se reciben objetos vacíos o promesas pendientes en lugar de los datos reales.
-3. Al crear publicaciones, el servidor responde pero no parece guardar los campos enviados (posible problema de cabeceras).
-
-**Ejemplos del problema**:
-
-- `getPostById(1)` retorna `Promise { <pending> }` en lugar del objeto de la publicación.
-- `createPost(...)` no envía los datos en el formato que el servidor espera, causando que se ignoren los campos.
+1. **Promesas Pendientes**: Algunas funciones retornan objetos vacíos porque no se espera a que la API responda.
+2. **Lógica de Conteo Incorrecta**: El sistema de "Trending" cuenta caracteres en lugar de palabras, dando resultados absurdos.
+3. **Relaciones Rotas**: Al buscar el autor de una publicación, el sistema parece confundir el ID del post con el ID del usuario.
+4. **Fallas en Agregación**: Al intentar calcular el engagement de un usuario, el sistema no espera a que se carguen todos los comentarios de sus múltiples publicaciones.
+5. **Validación Débil**: Se están permitiendo publicaciones con títulos que solo contienen espacios en blanco.
 
 ## 📂 Archivos
 
-- `buggy-code.js` - Código con errores de `async/await`, sintaxis y encabezados.
-- `test.js` - Pruebas para validar la comunicación con la API.
-- `solution.js` - Implementación correcta para referencia.
+- `buggy-code.js` - Código con errores de asincronía, lógica de strings y manejo de arrays de promesas.
+- `test.js` - Suite de pruebas avanzadas.
+- `solution.js` - Referencia corregida con lógica optimizada.
 
 ## ✅ Cómo Verificar la Solución
 
@@ -53,6 +46,6 @@ npm test exercises/07-api-integration
 
 ## ⚙️ Nivel de Dificultad
 
-**Nivel**: Intermedio / Avanzado (Debido al uso de fetch real)
+**Nivel**: Avanzado
 
-**Tiempo Estimado**: 20-30 minutos
+**Tiempo Estimado**: 30-45 minutos
