@@ -344,90 +344,39 @@ if (require.main === module) {
 
 ```javascript
 /**
- * Tests for [Exercise Name]
- *
- * Run with: node test.js
+ * Pruebas para [Nombre del Ejercicio]
+ * Ejecutar con: npm test exercises/##-nombre-ejercicio
  */
 
-// Import the code to test
-// CHANGE THIS to test buggy-code.js or solution.js
-const { functionName } = require('./solution.js');
-// const { functionName } = require('./buggy-code.js');
+// IMPORTANTE: Cambiar esta línea para probar tu solución
+const { functionName } = require('./buggy-code.js');
+// const { functionName } = require('./solution.js');
 
-console.log('Testing [Exercise Name]...\n');
+describe('[Nombre del Ejercicio]', () => {
+  describe('[Funcionalidad principal]', () => {
+    test('debe [comportamiento esperado con entrada normal]', () => {
+      expect(functionName(input1)).toBe(expectedOutput1);
+    });
 
-let passed = 0;
-let failed = 0;
+    test('debe [otro comportamiento esperado]', () => {
+      expect(functionName(input2)).toBe(expectedOutput2);
+    });
 
-/**
- * Test helper function
- */
-function test(description, actual, expected) {
-  if (JSON.stringify(actual) === JSON.stringify(expected)) {
-    console.log(`✓ ${description}`);
-    passed++;
-  } else {
-    console.log(`✗ ${description}`);
-    console.log(`  Expected: ${JSON.stringify(expected)}`);
-    console.log(`  Got: ${JSON.stringify(actual)}`);
-    failed++;
-  }
-}
+    test('debe manejar caso límite — [descripción]', () => {
+      expect(functionName(edgeCase)).toBe(expectedEdgeOutput);
+    });
+  });
 
-/**
- * Test helper for errors
- */
-function testError(description, fn, shouldThrow = true) {
-  let threw = false;
-  try {
-    fn();
-  } catch (err) {
-    threw = true;
-  }
+  describe('[Otra funcionalidad o escenario]', () => {
+    test('debe [comportamiento]', () => {
+      expect(functionName(input3)).toEqual(expectedObject);
+    });
 
-  if (threw === shouldThrow) {
-    console.log(`✓ ${description}`);
-    passed++;
-  } else {
-    console.log(`✗ ${description}`);
-    console.log(`  Expected to ${shouldThrow ? 'throw' : 'not throw'}`);
-    failed++;
-  }
-}
-
-// Test cases
-console.log('📝 Test Cases:\n');
-
-test(
-  'Test 1: [Description of what this tests]',
-  functionName(input1),
-  expectedOutput1,
-);
-
-test('Test 2: [Description]', functionName(input2), expectedOutput2);
-
-test(
-  'Test 3: [Edge case description]',
-  functionName(edgeCase),
-  expectedEdgeCaseOutput,
-);
-
-// Add 5-10 test cases covering:
-// - Normal cases
-// - Edge cases
-// - Boundary conditions
-// - Error conditions (if applicable)
-
-// Results summary
-console.log('\n' + '='.repeat(50));
-console.log(`📊 Results: ${passed} passed, ${failed} failed`);
-
-if (failed === 0) {
-  console.log('🎉 All tests passed!');
-} else {
-  console.log('❌ Some tests failed. Keep debugging!');
-  process.exit(1);
-}
+    test('debe lanzar error cuando [condición inválida]', () => {
+      expect(() => functionName(invalidInput)).toThrow('[mensaje de error]');
+    });
+  });
+});
 ```
 
 **Test Coverage Requirements**:
