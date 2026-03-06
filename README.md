@@ -211,6 +211,7 @@ This project is designed to be LLM-friendly. See [LLM_GUIDE.md](./LLM_GUIDE.md) 
 35. ✅ **35-matrix-rotation** - Error Lógico: Invertir filas antes de transponer produce rotación antihoraria en lugar de horaria (Intermedio)
 36. ✅ **36-grade-curve** - Error Lógico: Curva calculada dividiendo entre el promedio en lugar del máximo, distorsionando las proporciones (Intermedio)
 37. ✅ **37-poker-hand-ranker** - Error Lógico: Operador `||` en lugar de `&&` en la condición de full house clasifica tríos incorrectamente (Intermedio)
+38. ✅ **38-calendar-builder** - Error Lógico: `getDay()` sin conversión coloca lunes en índice 1 en vez de 0, desfasando toda la cuadrícula (Intermedio)
 
 ## 🔧 Troubleshooting
 
