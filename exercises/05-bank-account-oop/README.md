@@ -22,17 +22,7 @@ Como desarrollador de un sistema financiero, necesito implementar un módulo de 
 
 ## 🐛 Problema Reportado
 
-El equipo de QA ha bloqueado el release por múltiples fallos críticos detectados:
-
-1. Los depósitos reducen el saldo en lugar de incrementarlo.
-2. No se puede retirar exactamente el saldo disponible; la validación tiene un error en el operador de comparación.
-3. En una transferencia, el dinero aparece en la cuenta destino antes de que salga de la origen, lo que crea saldos inconsistentes si la cuenta no tiene fondos.
-4. El historial de transacciones está expuesto directamente: modificarlo desde fuera afecta los registros internos del banco.
-5. El recálculo del balance ignora si la transacción es un débito o crédito, sumando siempre el monto.
-6. `getCalculatedBalance()` lanza una excepción para cuentas sin transacciones (reduce sin valor inicial).
-7. La tasa de interés de `SavingsAccount` se aplica sin convertir a decimal (5% se trata como 500%).
-8. `applyInterest()` termina usando el operador de depósito que está bugueado, amplificando el error.
-9. El retiro en `SavingsAccount` usa `<=` en lugar de `<`, bloqueando retiros que deberían ser válidos (ej. retirar hasta dejar exactamente el mínimo).
+El equipo de QA ha bloqueado el release por múltiples fallos críticos en el módulo bancario. Las operaciones básicas no producen los resultados esperados y varias funciones auxiliares también presentan comportamiento incorrecto.
 
 **Ejemplos del problema**:
 
@@ -43,8 +33,8 @@ El equipo de QA ha bloqueado el release por múltiples fallos críticos detectad
 
 ## 📂 Archivos
 
-- `buggy-code.js` - Módulo de clases con 9 bugs distribuidos.
-- `test.js` - Suite de 31 pruebas (Jest).
+- `buggy-code.js` - Código con los errores.
+- `test.js` - Pruebas para validar la solución (Jest).
 - `solution.js` - Implementación correcta con comentarios `// CORREGIDO:`.
 
 ## ✅ Cómo Verificar la Solución
