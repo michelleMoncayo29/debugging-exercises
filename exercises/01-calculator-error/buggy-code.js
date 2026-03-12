@@ -36,6 +36,7 @@ const calculator = {
     }
     return a / b;
   },
+  
 
   /**
    * Calcular el promedio de un array de números
