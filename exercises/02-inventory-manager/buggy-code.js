@@ -44,6 +44,12 @@ function addProduct(inventory, product) {
 function getProductPrice(inventory, productId) {
   // Buscar el producto en el inventario y retornar su precio
   const product = inventory.find((item) => item.id === productId);
+  if (!product) {
+    throw new Error(
+      `Producto con ID ${productId} no encontrado en el inventario`,
+    );
+  }
+  // console.log('✅',product);
   return product.price;
 }
 
@@ -64,6 +70,10 @@ function applyDiscount(price, discount) {
   if (typeof discount !== 'number' || discount < 0) {
     throw new Error('El descuento debe ser un número entre 0 y 1');
   }
+
+  if ( discount > 1) {
+    throw new Error('El descuento debe ser un número entre 0 y 1');
+  }
   return price * (1 - discount);
 }
 
@@ -74,6 +84,14 @@ function applyDiscount(price, discount) {
  * @returns {number} Valor total del inventario
  */
 function getTotalValue(inventory) {
+  if (!Array.isArray(inventory)) {
+    throw new Error('El inventario debe ser un array');
+  }
+
+  if (!inventory) {
+    throw new Error('El inventario debe ser un array');
+  }
+
   // Calcular el valor total sumando precio × cantidad de cada producto
   if (inventory.length === 0) {
     return 0;
