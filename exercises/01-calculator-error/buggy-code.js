@@ -38,10 +38,12 @@ const calculator = {
     return a / b;
   },
 
+
   /**
    * Calcular el promedio de un array de números
    */
   average: function (numbers) {
+    
     if (numbers.length === 0) {
       return 0;
     }
@@ -51,8 +53,12 @@ const calculator = {
       sum += numbers[i];
     }
 
+    let promt = sum / numbers.length;
+
+    // console.log('✅✅', promt);
+
     // Calcular y retornar el promedio
-    return sum + numbers[numbers.length - 1] / numbers.length;
+    return promt;
   },
 };
 
