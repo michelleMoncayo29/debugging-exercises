@@ -5,6 +5,7 @@
  * suma, resta, multiplicación, división y promedio.
  */
 
+
 const calculator = {
   /**
    * Sumar dos números
