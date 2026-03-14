@@ -16,11 +16,14 @@ const API_URL = 'https://jsonplaceholder.typicode.com/users';
 async function findUserByEmail(email) {
   // Simular una búsqueda en la API externa
   // INTENTO: Obtener los datos y retornar el primer usuario encontrado
-  const response = fetch(`${API_URL}?email=${email}`);
-  const users = response.json();
+  const response = await fetch(`${API_URL}?email=${email}`);
+  const users = await response.json();
+  // console.log('esto deberia ser users', users);
 
   return users.length > 0 ? users[0] : null;
 }
+// findUserByEmail('Sincere@april.biz');
+
 
 /**
  * Registra un nuevo usuario.
@@ -31,7 +34,7 @@ async function findUserByEmail(email) {
  */
 async function registerUser(userData) {
   // Comprobar si el usuario ya existe antes de registrarlo
-  const existingUser = findUserByEmail(userData.email);
+  const existingUser =  await findUserByEmail(userData.email);
 
   if (existingUser) {
     throw new Error('El correo electrónico ya está registrado');
@@ -66,7 +69,7 @@ async function authenticateUser(email, password) {
   }
 
   // Simulación de validación de contraseña
-  const isMatch = new Promise((resolve) => {
+  const isMatch = await new Promise((resolve) => {
     setTimeout(() => {
       // Usamos el username como password para la simulación
       resolve(user.username === password);
