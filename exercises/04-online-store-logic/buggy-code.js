@@ -11,8 +11,23 @@
  */
 function calculateSubtotal(items) {
   // Sumar precios por cantidad de cada producto
-  return items.reduce((acc, item) => acc + item.price * item.quantity);
+  // const prices = items.reduce((acc, item) => acc + item.price * item.quantity);
+  
+  let sum = 0;
+  for (i = 0; i < items.length; i++){
+    const object = items[i];
+    let sumValor = object.price * object.quantity;
+    sum += sumValor;
+  }
+
+  // console.log(sum);
+  return sum;
 }
+
+// calculateSubtotal([
+//   { price: 10, quantity: 2 },
+//   { price: 5, quantity: 3 },
+// ]);
 
 /**
  * Aplica un cupón de descuento al total.
