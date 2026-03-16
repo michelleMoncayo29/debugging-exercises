@@ -20,14 +20,8 @@ function calculateSubtotal(items) {
     sum += sumValor;
   }
 
-  // console.log(sum);
   return sum;
 }
-
-// calculateSubtotal([
-//   { price: 10, quantity: 2 },
-//   { price: 5, quantity: 3 },
-// ]);
 
 /**
  * Aplica un cupón de descuento al total.
@@ -41,11 +35,14 @@ function applyCoupon(total, couponCode) {
     WELCOME20: 0.2,
   };
 
+  const casesInsensitive = couponCode ? couponCode.toUpperCase() : '';
   // Buscar descuento. Comparar con los códigos disponibles.
-  const discount = coupons[couponCode] || 0;
+  const discount = coupons[casesInsensitive] || 0;
 
   return total * (1 - discount);
 }
+
+applyCoupon(100, 'summer10');
 
 /**
  * Calcula el impuesto sobre un monto dado.
@@ -55,8 +52,11 @@ function applyCoupon(total, couponCode) {
  */
 function calculateTax(amount, taxRate) {
   // Calcular el monto del impuesto sumando la tasa al monto original
-  return amount + taxRate / 100;
+  // console.log((amount * taxRate) / 100);
+  return amount * taxRate / 100;
 }
+
+// calculateTax(100, 21);
 
 /**
  * Determina el costo de envío basado en el peso y el estado de membresía.
@@ -69,8 +69,9 @@ function getShippingFee(weight, isPremium) {
   if (isPremium) return 0;
 
   // Si pesa 10kg o más cuesta 25, si pesa menos cuesta 10
-  if (weight > 10) return 25;
-  return 10;
+  if (weight >= 10) return 25;
+  if (weight > 0) return 10;
+  return 0;
 }
 
 /**
@@ -81,15 +82,23 @@ function getShippingFee(weight, isPremium) {
  */
 function addItem(cart, newItem) {
   const existingItemIndex = cart.findIndex((item) => item.id === newItem.id);
+  // console.log(existingItemIndex);
 
   if (existingItemIndex > -1) {
     // Si ya existe, actualizar la cantidad
-    cart[existingItemIndex].quantity += newItem.quantity;
-    return cart;
+    const newCart = [...cart];
+    newCart[existingItemIndex] = {
+      ...newCart[existingItemIndex],
+      quantity: newCart[existingItemIndex].quantity + newItem.quantity,
+    };
+
+    return newCart;
   }
 
   return [...cart, newItem];
 }
+
+// addItem([{ id: 1, name: 'A', quantity: 1 }], { id: 2, name: 'B', quantity: 1 });
 
 /**
  * Elimina un producto del carrito por su ID.
@@ -98,9 +107,7 @@ function addItem(cart, newItem) {
  * @returns {Object[]} El carrito filtrado
  */
 function removeItem(cart, itemId) {
-  const index = cart.findIndex((item) => item.id === itemId);
-  // Eliminar el producto del carrito
-  return cart.splice(index, 1);
+  return cart.filter((item) => item.id !== itemId);
 }
 
 /**
@@ -110,7 +117,7 @@ function removeItem(cart, itemId) {
  */
 function formatOrderSummary(order) {
   // Retornar un string con la cantidad y el total
-  return `Pedido: ${order.itemsCount} productos - Total: $${order.total}`;
+  return `Pedido: ${order.itemsCount} productos - Total: $${order.total.toFixed(2)}`;
 }
 
 // Exportar funciones
