@@ -32,7 +32,7 @@ class Transaction {
    */
   getNetEffect() {
     // Los retiros y depósitos tienen el mismo impacto positivo en el saldo
-    return this.amount;
+    return this.type === 'deposit' ? this.amount : -this.amount;
   }
 
   toString() {
@@ -58,6 +58,7 @@ class BankAccount {
       throw new Error('El saldo inicial no puede ser negativo');
     }
 
+
     this.owner = owner;
     this._balance = initialBalance;
     this._transactions = [];
@@ -79,7 +80,7 @@ class BankAccount {
       throw new Error('El monto del depósito debe ser un número positivo');
     }
     // Actualizar el saldo sumando el monto al balance actual
-    this._balance -= amount;
+    this._balance += amount;
     this._transactions.push(new Transaction('deposit', amount, description));
     return this._balance;
   }
@@ -95,7 +96,7 @@ class BankAccount {
       throw new Error('El monto del retiro debe ser un número positivo');
     }
     // Verificar que haya fondos suficientes antes de retirar
-    if (amount >= this._balance) {
+    if (amount > this._balance) {
       throw new Error('Fondos insuficientes');
     }
     this._balance -= amount;
@@ -125,7 +126,7 @@ class BankAccount {
    */
   getTransactionHistory() {
     // Retornar el historial directamente para que el cliente pueda verlo
-    return this._transactions;
+    return [...this._transactions];
   }
 
   /**
@@ -135,7 +136,7 @@ class BankAccount {
    */
   getCalculatedBalance() {
     // Recalcular el balance sumando todos los efectos de las transacciones
-    return this._transactions.reduce((acc, tx) => acc + tx.getNetEffect());
+    return this._transactions.reduce((acc, tx) => acc + tx.getNetEffect(), 0);
   }
 
   /**
@@ -186,7 +187,7 @@ class SavingsAccount extends BankAccount {
       throw new Error('El saldo mínimo no puede ser negativo');
     }
     // Guardar la tasa tal como viene (ej. 5 = 5%)
-    this.interestRate = interestRate;
+    this.interestRate = interestRate / 100;
     this.minimumBalance = minimumBalance;
   }
 
@@ -213,7 +214,7 @@ class SavingsAccount extends BankAccount {
       throw new Error('El monto del retiro debe ser un número positivo');
     }
     // Verificar que no se viole el mínimo, y luego retirar
-    if (this._balance - amount <= this.minimumBalance) {
+    if (this._balance - amount < this.minimumBalance) {
       throw new Error(
         `El retiro dejaría el saldo por debajo del mínimo requerido de $${this.minimumBalance}`,
       );
