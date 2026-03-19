@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/52-inventory-reorder
  */
 
-const { Inventory } = require('./solution.js');
+const { Inventory } = require('./buggy-code.js');
 
 describe('Inventory Reorder System', () => {
   let inventory;

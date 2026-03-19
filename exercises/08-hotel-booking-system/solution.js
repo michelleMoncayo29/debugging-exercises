@@ -23,7 +23,8 @@ const HOTEL_CONFIG = {
  */
 function getSeason(date) {
   const month = date.getMonth(); // 0-11
-  if (month >= 5 && month <= 8) return 'summer'; // Jun-Sep
+  // CORREGIDO: Verano es Jun-Ago (5-7), no incluye Septiembre
+  if (month >= 5 && month <= 7) return 'summer'; // Jun-Ago
   if (month === 11 || month === 0 || month === 1) return 'winter'; // Dic-Feb
   return 'low';
 }
@@ -60,10 +61,17 @@ function validateDateRange(checkIn, checkOut) {
 function calculateStayPrice(checkIn, checkOut, roomType = 'standard') {
   validateDateRange(checkIn, checkOut);
 
-  const inDate = new Date(checkIn);
-  const outDate = new Date(checkOut);
+  // CORREGIDO: Normalizar fechas ISO a medianoche local para evitar desfase de zona horaria
+  const parseLocalDate = (str) => {
+    const [y, m, d] = String(str).split('-').map(Number);
+    return new Date(y, m - 1, d);
+  };
 
-  // CORREGIDO: Cálculo correcto de diferencia de días asegurando enteros
+  const inDate =
+    typeof checkIn === 'string' ? parseLocalDate(checkIn) : new Date(checkIn);
+  const outDate =
+    typeof checkOut === 'string' ? parseLocalDate(checkOut) : new Date(checkOut);
+
   const diffTime = outDate - inDate;
   const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -173,8 +181,9 @@ function generateRevenueReport(reservations, year) {
 
   for (const res of reservations) {
     const date = new Date(res.checkIn);
-    if (date.getFullYear() === year) {
-      const monthIndex = date.getMonth();
+    // CORREGIDO: Usar métodos UTC para evitar desfase de zona horaria con fechas ISO
+    if (date.getUTCFullYear() === year) {
+      const monthIndex = date.getUTCMonth();
       report[monthIndex].revenue += res.total;
       report[monthIndex].bookingsCount += 1;
     }

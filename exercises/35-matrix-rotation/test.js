@@ -8,7 +8,7 @@
  */
 
 const { rotateMatrix } = require('./buggy-code.js');
-// const { rotateMatrix } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Matrix Rotation - Error Lógico', () => {
   test('debe rotar una matriz 2x2 90° en sentido horario', () => {

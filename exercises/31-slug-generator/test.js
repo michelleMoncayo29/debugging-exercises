@@ -8,7 +8,7 @@
  */
 
 const { generateSlug } = require('./buggy-code.js');
-// const { generateSlug } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Slug Generator - Error Lógico', () => {
   test('debe convertir un título simple a slug en minúsculas', () => {

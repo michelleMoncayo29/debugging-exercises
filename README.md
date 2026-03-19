@@ -222,13 +222,14 @@ Este proyecto es ideal para:
 56. ✅ **56-library-fines** - Error Lógico: `calculateFine` calcula `dueDate - returnDate` en lugar de `returnDate - dueDate`, invirtiendo el signo y cobrando $0 por devoluciones tardías (Principiante)
 57. ✅ **57-stock-portfolio** - Error Lógico: `getAnnualizedReturn` usa `totalReturn / years` (promedio simple) en lugar de la fórmula CAGR compuesta `(1+r)^(1/n) - 1`, sobreestimando el retorno anual (Intermedio)
 58. ✅ **58-event-calendar** - Error Lógico: `generateRecurringDates` empieza el bucle en `i = 1` en lugar de `i = 0`, omitiendo la fecha de inicio y desplazando todas las ocurrencias un intervalo hacia adelante (Principiante)
-59. ✅ **59-luhn-validator** - Error Lógico: Bug en el algoritmo de Luhn (Avanzado)
+59. ✅ **59-luhn-validator** - Error Lógico: `luhnCheck` dobla los dígitos en posiciones pares del arreglo invertido en lugar de las impares, invirtiendo la lógica del algoritmo de Luhn y haciendo que números válidos sean rechazados (Avanzado)
 60. ✅ **60-morse-code-translator** - Múltiples Errores: Defectos distribuidos a lo largo de todas las funciones del módulo de traducción Morse (Avanzado)
 61. ✅ **61-investment-calculator** - Error Lógico: Bug en fórmula financiera que afecta ROI, ranking y filtrado de inversiones (Avanzado)
 62. ✅ **62-contact-book** - Error de Tipo de Retorno: Bug en búsqueda por teléfono que devuelve un tipo incorrecto y afecta múltiples operaciones (Intermedio)
 66. ✅ **66-expense-splitter** - Error Lógico: Bug en el cálculo de lo que debe cada participante provoca balances incorrectos en cadena (Intermedio)
 68. ✅ **68-anagram-finder** - Error Lógico: `filterWordsWithMinAnagrams` usa `>` en lugar de `>=` al comparar el umbral, excluyendo palabras con exactamente el mínimo requerido de anagramas (Intermedio)
 69. ✅ **69-matrix-stats** - Error Lógico: `colSums` usa `row[0]` en lugar de `row[col]`, produciendo la misma suma para todas las columnas (Intermedio)
+72. ✅ **72-loan-manager** - Múltiples Errores Lógicos: 6 bugs de asignación, comparación y tipos afectan disponibilidad de libros, cálculo de multas, registro de devoluciones, consulta por miembro, ordenamiento y renovaciones (Avanzado)
 
 ## 🔧 Solución de Problemas
 

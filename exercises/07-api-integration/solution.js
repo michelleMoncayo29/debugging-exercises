@@ -107,10 +107,10 @@ async function findUserEngagement(userId) {
  */
 async function secureCreatePost(postData) {
   // CORREGIDO: Validación de esquema robusta
-  if (!postData.title || typeof postData.title !== 'string') {
+  if (!postData.title || typeof postData.title !== 'string' || !postData.title.trim()) {
     throw new Error('Título inválido');
   }
-  if (!postData.body || postData.body.length < 5) {
+  if (!postData.body || postData.body.length <= 5) {
     throw new Error('El cuerpo debe tener al menos 5 caracteres');
   }
 

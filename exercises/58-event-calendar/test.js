@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/58-event-calendar
  */
 
-const { EventCalendar } = require('./solution.js');
+const { EventCalendar } = require('./buggy-code.js');
 
 describe('Event Calendar', () => {
   let calendar;

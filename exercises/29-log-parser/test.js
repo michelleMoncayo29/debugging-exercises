@@ -8,7 +8,7 @@
  */
 
 const { parseLogLine, filterByLevel, countByLevel } = require('./buggy-code.js');
-// const { parseLogLine, filterByLevel, countByLevel } = require('./solution.js');
+// const { } = require('./solution.js');
 
 const SAMPLE_LOGS = [
   '[ERROR] 2024-01-15T10:30:00 - Connection timeout',

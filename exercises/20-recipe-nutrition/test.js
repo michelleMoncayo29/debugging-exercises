@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Ingredient, Recipe, MealPlan } = require('./buggy-code.js');
-// const { Ingredient, Recipe, MealPlan } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Sistema de Seguimiento Nutricional de Recetas', () => {
   describe('Ingredient - Cálculo de calorías del ingrediente', () => {

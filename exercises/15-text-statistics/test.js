@@ -13,7 +13,7 @@ const {
   getAverageWordLength,
   getMostFrequentWord,
 } = require('./buggy-code.js');
-// const { countWords, countSentences, getAverageWordLength, getMostFrequentWord } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Estadísticas de Texto - Error Lógico', () => {
   // ─── countWords ───────────────────────────────────────────────────────────

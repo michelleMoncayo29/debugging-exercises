@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Asset, Portfolio } = require('./buggy-code.js');
-// const { Asset, Portfolio } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Portafolio de Criptomonedas - Asset', () => {
   describe('getAverageCost - Cálculo de costo promedio por unidad', () => {

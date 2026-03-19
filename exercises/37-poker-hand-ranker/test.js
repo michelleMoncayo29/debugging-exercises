@@ -8,7 +8,7 @@
  */
 
 const { rankHand } = require('./buggy-code.js');
-// const { rankHand } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Poker Hand Ranker - Error Lógico', () => {
   test('debe identificar un par', () => {

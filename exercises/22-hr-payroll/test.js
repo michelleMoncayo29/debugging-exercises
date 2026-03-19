@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Employee, Department, PayrollCalculator } = require('./buggy-code.js');
-// const { Employee, Department, PayrollCalculator } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Sistema de Nómina de Recursos Humanos', () => {
   let calc;

@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Course, Student, GradeBook } = require('./buggy-code.js');
-// const { Course, Student, GradeBook } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Calculadora de GPA Universitario', () => {
   describe('calculateGPA - GPA ponderado por créditos', () => {

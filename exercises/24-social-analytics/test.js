@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Post, Author, Analytics } = require('./buggy-code.js');
-// const { Post, Author, Analytics } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Dashboard de Análisis de Redes Sociales', () => {
   let author;

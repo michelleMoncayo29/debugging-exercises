@@ -8,7 +8,7 @@
  */
 
 const { buildCalendar, getDaysInMonth } = require('./buggy-code.js');
-// const { buildCalendar, getDaysInMonth } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Calendar Builder - Error Lógico', () => {
   describe('getDaysInMonth - días en el mes', () => {

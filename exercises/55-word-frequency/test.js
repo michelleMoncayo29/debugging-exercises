@@ -11,7 +11,7 @@ const {
   getTopKeywords,
   cosineSimilarity,
   findMostSimilar,
-} = require('./solution.js');
+} = require('./buggy-code.js');
 
 describe('Word Frequency & TF-IDF', () => {
   const doc1 = 'the cat sat on the mat';

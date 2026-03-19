@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/57-stock-portfolio
  */
 
-const { StockPortfolio } = require('./solution.js');
+const { StockPortfolio } = require('./buggy-code.js');
 
 describe('Stock Portfolio', () => {
   let portfolio;

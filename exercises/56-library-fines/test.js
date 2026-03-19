@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/56-library-fines
  */
 
-const { LibrarySystem } = require('./solution.js');
+const { LibrarySystem } = require('./buggy-code.js');
 
 describe('Library Fines', () => {
   let library;

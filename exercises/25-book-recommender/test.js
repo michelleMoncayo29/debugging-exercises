@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Book, UserProfile, RecommendationEngine } = require('./buggy-code.js');
-// const { Book, UserProfile, RecommendationEngine } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Motor de Recomendación de Libros', () => {
   let user;

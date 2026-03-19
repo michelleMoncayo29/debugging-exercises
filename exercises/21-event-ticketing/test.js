@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Event, DiscountEngine, Order } = require('./buggy-code.js');
-// const { Event, DiscountEngine, Order } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Sistema de Venta de Tickets para Eventos', () => {
   let engine;

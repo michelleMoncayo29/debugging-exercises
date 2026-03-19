@@ -8,7 +8,7 @@
  */
 
 const { toRoman, fromRoman } = require('./buggy-code.js');
-// const { toRoman, fromRoman } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Roman Numeral Converter - Error Lógico', () => {
   describe('toRoman - conversión a numeral romano', () => {

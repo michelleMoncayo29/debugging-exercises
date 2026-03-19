@@ -17,7 +17,7 @@ const {
 //   getFlightDuration,
 //   calculateFare,
 //   bookFlight,
-// } = require('./solution.js');
+// } = require('./buggy-code.js');
 
 describe('Sistema de Reservas de Vuelos', () => {
   // --- getFlightDuration ---

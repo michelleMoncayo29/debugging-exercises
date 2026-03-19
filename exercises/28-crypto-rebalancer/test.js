@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Asset, Portfolio } = require('./buggy-code.js');
-// const { Asset, Portfolio } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Rebalanceador Automático de Portafolio de Criptomonedas', () => {
   describe('Portfolio.getRebalancePlan - Plan de rebalanceo usando porcentajes objetivo', () => {

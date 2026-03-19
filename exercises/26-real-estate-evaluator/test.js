@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Property, Listing, MarketAnalyzer } = require('./buggy-code.js');
-// const { Property, Listing, MarketAnalyzer } = require('./solution.js');
+// const { } = require('./solution.js');
 
 function makeListing(price) {
   return new Listing(new Property(1, 'Dir', price, 100, 2), 'Agente', 30);

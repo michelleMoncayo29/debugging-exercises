@@ -8,7 +8,7 @@
  */
 
 const { encode, decode } = require('./buggy-code.js');
-// const { encode, decode } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Run-Length Encoder - Error Lógico', () => {
   describe('encode - compresión', () => {

@@ -15,7 +15,7 @@ const {
   applyOrderThresholdDiscount,
   redeemPoints,
   formatDiscountSummary,
-} = require('./solution.js');
+} = require('./buggy-code.js');
 
 describe('Discount Engine', () => {
   describe('applyPercentageDiscount - descuento porcentual', () => {

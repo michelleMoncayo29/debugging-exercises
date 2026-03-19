@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Ride, PriceCalculator, haversineDistance } = require('./buggy-code.js');
-// const { Ride, PriceCalculator, haversineDistance } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Motor de Precios de Transporte Compartido', () => {
   let calculator;

@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/51-voting-system
  */
 
-const { tallyVotes, getWinner, getRankedResults, eliminateLowest } = require('./solution.js');
+const { tallyVotes, getWinner, getRankedResults, eliminateLowest } = require('./buggy-code.js');
 
 describe('Voting System', () => {
   describe('tallyVotes - conteo de votos', () => {

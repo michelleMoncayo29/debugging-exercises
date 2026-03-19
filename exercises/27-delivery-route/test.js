@@ -9,7 +9,7 @@
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
 const { Depot, Stop, RouteCalculator, haversineDistance } = require('./buggy-code.js');
-// const { Depot, Stop, RouteCalculator, haversineDistance } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Calculadora de Rutas de Entrega', () => {
   let calc;

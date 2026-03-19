@@ -8,7 +8,7 @@
  */
 
 const { extractEmails, isValidEmail } = require('./buggy-code.js');
-// const { extractEmails, isValidEmail } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Email Extractor - Error Lógico', () => {
   describe('isValidEmail - validación de email', () => {

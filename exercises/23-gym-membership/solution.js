@@ -3,11 +3,17 @@
  * Consulta el clima desde Open-Meteo API (sin API key) para recomendar sesiones al aire libre
  */
 
+// Parsea una cadena 'YYYY-MM-DD' como fecha local (no UTC) para evitar desfases de zona horaria
+function parseLocalDate(dateStr) {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
 class Member {
   constructor(id, name, joinDate) {
     this.id = id;
     this.name = name;
-    this.joinDate = new Date(joinDate);
+    this.joinDate = parseLocalDate(joinDate);
   }
 }
 
@@ -17,7 +23,7 @@ class Membership {
     this.planName = planName;
     this.monthlyFee = monthlyFee;
     this.durationMonths = durationMonths;
-    this.startDate = new Date(startDate);
+    this.startDate = parseLocalDate(startDate);
   }
 
   // Calcula la fecha de vencimiento de la membresía sumando la duración en meses
@@ -53,7 +59,7 @@ class WorkoutLog {
   }
 
   logSession(date, type, durationMinutes) {
-    this.sessions.push({ date: new Date(date), type, durationMinutes });
+    this.sessions.push({ date: parseLocalDate(date), type, durationMinutes });
   }
 
   getMonthlySessionCount(year, month) {

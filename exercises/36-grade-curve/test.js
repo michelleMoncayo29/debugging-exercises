@@ -8,7 +8,7 @@
  */
 
 const { applyCurve, getLetterGrade } = require('./buggy-code.js');
-// const { applyCurve, getLetterGrade } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Grade Curve - Error Lógico', () => {
   describe('applyCurve - escalar notas al máximo de 100', () => {

@@ -3,7 +3,7 @@
  * Ejecutar con: npm test exercises/54-leaderboard
  */
 
-const { Leaderboard } = require('./solution.js');
+const { Leaderboard } = require('./buggy-code.js');
 
 describe('Leaderboard', () => {
   let board;

@@ -8,7 +8,7 @@
  */
 
 const { calculateChange, canMakeChange } = require('./buggy-code.js');
-// const { calculateChange, canMakeChange } = require('./solution.js');
+// const { } = require('./solution.js');
 
 describe('Vending Machine - Error Lógico', () => {
   const COINS = [1, 5, 10, 25, 50, 100];
