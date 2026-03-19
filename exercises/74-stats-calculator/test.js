@@ -272,13 +272,19 @@ describe('calculatePercentile - percentil', () => {
   test('debería calcular el percentil 25 correctamente con interpolación', () => {
     // [1,2,3,4,5,6,7,8]: índice=0.25*7=1.75, lower=1, upper=2
     // → sorted[1] + 0.75*(sorted[2]-sorted[1]) = 2 + 0.75 = 2.75
-    expect(calculatePercentile([1, 2, 3, 4, 5, 6, 7, 8], 25)).toBeCloseTo(2.75, 4);
+    expect(calculatePercentile([1, 2, 3, 4, 5, 6, 7, 8], 25)).toBeCloseTo(
+      2.75,
+      4,
+    );
   });
 
   test('debería calcular el percentil 75 correctamente con interpolación', () => {
     // [1,2,3,4,5,6,7,8]: índice=0.75*7=5.25, lower=5, upper=6
     // → sorted[5] + 0.25*(sorted[6]-sorted[5]) = 6 + 0.25 = 6.25
-    expect(calculatePercentile([1, 2, 3, 4, 5, 6, 7, 8], 75)).toBeCloseTo(6.25, 4);
+    expect(calculatePercentile([1, 2, 3, 4, 5, 6, 7, 8], 75)).toBeCloseTo(
+      6.25,
+      4,
+    );
   });
 });
 
@@ -313,7 +319,7 @@ describe('calculateQuartiles - cuartiles', () => {
   });
 
   test('debería calcular cuartiles aunque el arreglo esté desordenado', () => {
-    const ordered   = calculateQuartiles([1, 2, 3, 4, 5]);
+    const ordered = calculateQuartiles([1, 2, 3, 4, 5]);
     const unordered = calculateQuartiles([5, 3, 1, 4, 2]);
     expect(ordered.Q1).toBeCloseTo(unordered.Q1, 4);
     expect(ordered.Q2).toBeCloseTo(unordered.Q2, 4);
@@ -361,7 +367,9 @@ describe('calculateZScores - puntuaciones z', () => {
     const stdDev = calculateStdDev(data);
     const scores = calculateZScores(data);
     // El elemento cuyo valor es exactamente mean+stdDev debe tener z≈1
-    const targetIndex = data.indexOf(data.find((x) => Math.abs(x - (mean + stdDev)) < 0.001));
+    const targetIndex = data.indexOf(
+      data.find((x) => Math.abs(x - (mean + stdDev)) < 0.001),
+    );
     if (targetIndex !== -1) {
       expect(scores[targetIndex]).toBeCloseTo(1, 1);
     }
@@ -381,7 +389,9 @@ describe('calculateZScores - puntuaciones z', () => {
     const data = [2, 4, 4, 4, 5, 5, 7, 9];
     const scores = calculateZScores(data);
     const meanZ = scores.reduce((s, z) => s + z, 0) / scores.length;
-    const variance = scores.reduce((s, z) => s + Math.pow(z - meanZ, 2), 0) / (scores.length - 1);
+    const variance =
+      scores.reduce((s, z) => s + Math.pow(z - meanZ, 2), 0) /
+      (scores.length - 1);
     expect(Math.sqrt(variance)).toBeCloseTo(1, 1);
   });
 
@@ -414,7 +424,10 @@ describe('calculateCorrelation - correlación de Pearson', () => {
   test('[TEST CRÍTICO] debería retornar 1 para una relación lineal positiva perfecta', () => {
     // x=[1,2,3,4,5], y=[2,4,6,8,10]
     // Si se usa meanX para las desviaciones de y, el numerador cambia y el resultado no es 1
-    expect(calculateCorrelation([1, 2, 3, 4, 5], [2, 4, 6, 8, 10])).toBeCloseTo(1, 4);
+    expect(calculateCorrelation([1, 2, 3, 4, 5], [2, 4, 6, 8, 10])).toBeCloseTo(
+      1,
+      4,
+    );
   });
 
   test('debería retornar -1 para una relación lineal negativa perfecta', () => {
@@ -436,7 +449,10 @@ describe('calculateCorrelation - correlación de Pearson', () => {
   test('debería ser simétrica: corr(x,y) = corr(y,x)', () => {
     const x = [1, 2, 3, 4, 5];
     const y = [3, 1, 4, 1, 5];
-    expect(calculateCorrelation(x, y)).toBeCloseTo(calculateCorrelation(y, x), 4);
+    expect(calculateCorrelation(x, y)).toBeCloseTo(
+      calculateCorrelation(y, x),
+      4,
+    );
   });
 
   test('debería calcular correlación correcta para [1,2,3] con [2,4,6]', () => {
