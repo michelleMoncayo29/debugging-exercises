@@ -231,6 +231,7 @@ Este proyecto es ideal para:
 69. ✅ **69-matrix-stats** - Error Lógico: `colSums` usa `row[0]` en lugar de `row[col]`, produciendo la misma suma para todas las columnas (Intermedio)
 72. ✅ **72-loan-manager** - Múltiples Errores Lógicos: 6 bugs de asignación, comparación y tipos afectan disponibilidad de libros, cálculo de multas, registro de devoluciones, consulta por miembro, ordenamiento y renovaciones (Avanzado)
 73. ✅ **73-investment-analyzer** - Múltiples Errores Lógicos: 7 bugs en fórmulas financieras (ROI, interés compuesto, CAGR, Regla del 72, Break-Even, volatilidad y ranking) producen cálculos de inversiones incorrectos (Avanzado)
+74. ✅ **74-stats-calculator** - Múltiples Errores Lógicos: 6 bugs en métricas estadísticas (mediana sin ordenar, varianza poblacional vs muestral, moda vacía, z-scores incorrectos, correlación de Pearson y detección de outliers) (Avanzado)
 
 ## 🔧 Solución de Problemas
 
