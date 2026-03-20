@@ -234,6 +234,7 @@ Este proyecto es ideal para:
 74. ✅ **74-stats-calculator** - Múltiples Errores Lógicos: 6 bugs en métricas estadísticas (mediana sin ordenar, varianza poblacional vs muestral, moda vacía, z-scores incorrectos, correlación de Pearson y detección de outliers) (Avanzado)
 75. ✅ **75-hotel-booking** - Error Lógico: operandos invertidos en el cálculo de noches (checkIn - checkOut en vez de checkOut - checkIn) provoca costos e ingresos negativos (Intermedio)
 76. ✅ **76-parking-lot-manager** - Error Lógico: `Math.floor` en lugar de `Math.ceil` al calcular horas de estacionamiento provoca tarifas incorrectas en estadías con horas parciales (Avanzado)
+77. ✅ **77-tournament-manager** - Error Lógico: una victoria suma 2 puntos en vez de 3, distorsionando la tabla de posiciones y todos los cálculos que dependen de ella (Avanzado)
 
 ## 🔧 Solución de Problemas
 
