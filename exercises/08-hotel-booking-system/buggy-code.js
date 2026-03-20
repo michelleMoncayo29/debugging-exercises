@@ -23,7 +23,7 @@ const HOTEL_CONFIG = {
  */
 function getSeason(date) {
   const month = date.getMonth();
-  if (month >= 5 && month <= 8) return 'summer';
+  if (month >= 5 && month <= 7) return 'summer';
   if (month === 11 || month === 0 || month === 1) return 'winter';
 }
 

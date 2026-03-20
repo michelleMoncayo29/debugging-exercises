@@ -21,15 +21,8 @@ async function getFullPostProfile(postId) {
   if (!postResponse.ok) throw new Error('Post no encontrado');
   const post = await postResponse.json();
 
-  // CORREGIDO: Se utilizan promesas paralelas para optimizar el tiempo de carga
-  const [userResponse, commentsResponse] = await Promise.all([
-    fetch(`https://jsonplaceholder.typicode.com/users/${post.userId}`),
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`),
-  ]);
-
-  if (!userResponse.ok || !commentsResponse.ok) {
-    throw new Error('Error al obtener datos relacionados del perfil');
-  }
+  const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${post.id}`);
+  const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
 
   const author = await userResponse.json();
   const comments = await commentsResponse.json();

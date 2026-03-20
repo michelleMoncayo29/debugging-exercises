@@ -14,7 +14,7 @@ const fetch = typeof globalThis.fetch !== 'undefined' ? globalThis.fetch : null;
 async function getFullPostProfile(postId) {
   if (!postId) throw new Error('Se requiere un ID de publicación');
 
-  const postResponse = fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+  const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
   
   if (!postResponse.ok) throw new Error('Post no encontrado');
   const post = await postResponse.json();
@@ -42,8 +42,8 @@ async function getFullPostProfile(postId) {
  * Lógica de negocio sobre datos consultados.
  */
 async function getTrendingPosts(minWords = 10) {
-  const response = fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = response.json();
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const posts = await response.json();
 
   return posts
     .filter(post => post.body.split('').length >= minWords)
@@ -87,7 +87,7 @@ async function secureCreatePost(postData) {
     throw new Error('Título inválido');
   }
   
-  if (postData.body.length < 5 {
+  if (postData.body.length < 5) {
     throw new Error('El cuerpo debe tener al menos 5 caracteres');
   }
 
