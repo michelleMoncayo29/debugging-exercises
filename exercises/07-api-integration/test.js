@@ -5,18 +5,18 @@
  */
 
 // IMPORTANTE: Cambiar esta línea para probar tu solución
-// const {
-//   getFullPostProfile,
-//   getTrendingPosts,
-//   findUserEngagement,
-//   secureCreatePost,
-// } = require('./buggy-code.js');
 const {
   getFullPostProfile,
   getTrendingPosts,
   findUserEngagement,
   secureCreatePost,
-} = require('./solution.js');
+} = require('./buggy-code.js');
+// const {
+//   getFullPostProfile,
+//   getTrendingPosts,
+//   findUserEngagement,
+//   secureCreatePost,
+// } = require('./solution.js');
 
 describe('Integración Avanzada con API - Lógica y Asincronía', () => {
   describe('getFullPostProfile - Perfil Completo', () => {
