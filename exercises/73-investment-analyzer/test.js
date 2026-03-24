@@ -2,7 +2,7 @@
  * Tests para el ejercicio 73-investment-analyzer.
  * Por defecto prueba buggy-code.js (contiene el bug que el estudiante debe corregir).
  * Para verificar la solución, cambia la línea de import a:
- *   const { ... } = require('./solution');
+ *   const { ... } = require('./buggy-code');
  */
 
 const {

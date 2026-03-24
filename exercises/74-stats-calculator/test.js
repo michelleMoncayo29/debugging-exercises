@@ -3,7 +3,7 @@
  *
  * Por defecto se prueba el código con bugs (buggy-code.js).
  * Para verificar la solución, cambia la línea de importación a:
- *   const { ... } = require('./solution');
+ *   const { ... } = require('./buggy-code');
  */
 
 const {
