@@ -5,27 +5,40 @@
  * lógicas complejas sobre los resultados obtenidos.
  */
 
-const fetch = typeof globalThis.fetch !== 'undefined' ? globalThis.fetch : null;
+const fetch = typeof globalThis.fetch !== "undefined" ? globalThis.fetch : null;
 
 /**
  * Obtiene un perfil completo: Publicación, su Autor y sus Comentarios.
  * Combina múltiples llamadas asíncronas.
  */
 async function getFullPostProfile(postId) {
-  if (!postId) throw new Error('Se requiere un ID de publicación');
+  if (!postId) throw new Error("Se requiere un ID de publicación");
 
-  // CORREGIDO: Se añadió await para obtener la respuesta del post
+
   const postResponse = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`,
   );
-  if (!postResponse.ok) throw new Error('Post no encontrado');
+
+  if (!postResponse.ok) throw new Error("Post no encontrado");
   const post = await postResponse.json();
 
-  const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${post.id}`);
-  const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
+  const userIdPost = post.userId;
+
+  const userResponse = await fetch(
+    `https://jsonplaceholder.typicode.com/users/${userIdPost}`,
+  );
+  
+  const commentsResponse = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
+  );
+  
+  // console.log(post);
 
   const author = await userResponse.json();
+  // console.log(userResponse);
   const comments = await commentsResponse.json();
+  // console.log(comments);
+  // console.log(author.email);
 
   return {
     ...post,
@@ -39,13 +52,15 @@ async function getFullPostProfile(postId) {
   };
 }
 
+getFullPostProfile(11);
+
 /**
  * Filtra publicaciones por longitud del cuerpo y extrae palabras clave.
  * Lógica de negocio sobre datos consultados.
  */
 async function getTrendingPosts(minWords = 10) {
   // CORREGIDO: Se añadió await a la llamada inicial
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
   const posts = await response.json();
 
   // CORREGIDO: Lógica de conteo de palabras corregida usando trim() y split()
@@ -56,7 +71,7 @@ async function getTrendingPosts(minWords = 10) {
       title: post.title,
       wordCount: post.body.trim().split(/\s+/).length,
       // Extraer primera palabra del título como tag
-      tag: post.title.split(' ')[0],
+      tag: post.title.split(" ")[0],
     }))
     .slice(0, 5); // Solo las top 5
 }
@@ -65,7 +80,7 @@ async function getTrendingPosts(minWords = 10) {
  * Busca correos electrónicos específicos en los comentarios de un usuario.
  */
 async function findUserEngagement(userId) {
-  if (!userId) throw new Error('ID de usuario requerido');
+  if (!userId) throw new Error("ID de usuario requerido");
 
   // CORREGIDO: URL corregida para obtener posts del usuario específicamente
   const postsResponse = await fetch(
@@ -100,28 +115,32 @@ async function findUserEngagement(userId) {
  */
 async function secureCreatePost(postData) {
   // CORREGIDO: Validación de esquema robusta
-  if (!postData.title || typeof postData.title !== 'string' || !postData.title.trim()) {
-    throw new Error('Título inválido');
+  if (
+    !postData.title ||
+    typeof postData.title !== "string" ||
+    !postData.title.trim()
+  ) {
+    throw new Error("Título inválido");
   }
   if (!postData.body || postData.body.length <= 5) {
-    throw new Error('El cuerpo debe tener al menos 5 caracteres');
+    throw new Error("El cuerpo debe tener al menos 5 caracteres");
   }
 
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
     body: JSON.stringify(postData),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
   });
 
-  if (!response.ok) throw new Error('Error en el servidor');
+  if (!response.ok) throw new Error("Error en el servidor");
 
   return await response.json();
 }
 
 // Exportar para testing
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     getFullPostProfile,
     getTrendingPosts,
