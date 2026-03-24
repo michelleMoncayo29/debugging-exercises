@@ -34,6 +34,9 @@ function addItem(cart, product, quantity) {
 
   if (existingItem) {
     // Si ya existe, simplemente sumar la cantidad
+    if (product.stock < existingItem.quantity + quantity) {
+      throw new Error(`Stock insuficiente para añadir más de: ${product.name}`);
+    }
     existingItem.quantity += quantity;
   } else {
     // Agregar nuevo producto
@@ -49,11 +52,15 @@ function addItem(cart, product, quantity) {
 }
 
 function removeItem(cart, productId) {
-  // Encontrar el producto para poder loguear su nombre
-  const item = cart.items.find((i) => i.id === productId);
+  
+  const index = cart.items.findIndex((i) => i.id === productId);
+
+  if (index === -1) {
+    throw new Error('El producto no se encuentra en el carrito');
+  }
 
   // Guardar el nombre para analíticas futuras (simulado)
-  const itemName = item.name;
+  // const itemName = item.name;
 
   // Filtrar el carrito para remover el ID
   cart.items = cart.items.filter((i) => i.id !== productId);
@@ -93,16 +100,15 @@ function calculateTotals(cart) {
     }
   }
 
-  // Calcular impuestos sobre el subtotal sin descuento
-  const tax = subtotal * TAX_RATE;
+  discountAmount = Math.min(discountAmount, subtotal);
+  const discountedSubtotal = subtotal - discountAmount;
 
-  cart.subtotal = subtotal;
-  cart.discount = discountAmount;
-  cart.tax = tax;
+  const tax = discountedSubtotal * TAX_RATE;
 
-  // Error de lógica y precisión: el descuento se resta después,
-  // y los decimales flotantes pueden provocar resultados extraños
-  cart.total = subtotal - discountAmount + tax;
+  cart.subtotal = Number(subtotal.toFixed(2));
+  cart.discount = Number(discountAmount.toFixed(2));
+  cart.tax = Number(tax.toFixed(2));
+  cart.total = Number((discountedSubtotal + tax).toFixed(2));
 
   return cart;
 }
