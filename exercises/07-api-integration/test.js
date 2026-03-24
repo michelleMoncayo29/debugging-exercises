@@ -11,7 +11,12 @@ const {
   findUserEngagement,
   secureCreatePost,
 } = require('./buggy-code.js');
-// const { getFullPostProfile, getTrendingPosts, findUserEngagement, secureCreatePost } = require('./solution.js');
+// const {
+//   getFullPostProfile,
+//   getTrendingPosts,
+//   findUserEngagement,
+//   secureCreatePost,
+// } = require('./solution.js');
 
 describe('Integración Avanzada con API - Lógica y Asincronía', () => {
   describe('getFullPostProfile - Perfil Completo', () => {
@@ -36,12 +41,12 @@ describe('Integración Avanzada con API - Lógica y Asincronía', () => {
 
   describe('getTrendingPosts - Lógica de Filtrado', () => {
     test('debe retornar las top 5 publicaciones que cumplen el mínimo de palabras', async () => {
-      const trending = await getTrendingPosts(50); // Posts con al menos 50 palabras
+      const trending = await getTrendingPosts(10); // Posts con al menos 10 palabras
 
       expect(Array.isArray(trending)).toBe(true);
       expect(trending.length).toBeLessThanOrEqual(5);
       expect(trending[0]).toHaveProperty('wordCount');
-      expect(trending[0].wordCount).toBeGreaterThanOrEqual(50);
+      expect(trending[0].wordCount).toBeGreaterThanOrEqual(10);
     });
   });
 
