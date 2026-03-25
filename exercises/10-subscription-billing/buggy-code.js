@@ -28,8 +28,9 @@ function calculateProration(price, daysUsed, totalDays) {
   if (daysUsed > totalDays) {
     throw new Error('Los días utilizados no pueden exceder el total del período');
   }
+
   // Dividir el precio entre los días del período para obtener el valor diario
-  return Math.round((price / 30) * daysUsed * 100) / 100;
+  return Math.round((price * daysUsed) / totalDays);
 }
 
 /**
@@ -70,10 +71,11 @@ function calculateCancellationRefund(subscription, currentDate = new Date()) {
   const daysUsed = Math.floor(
     (currentDate - startDate) / (1000 * 60 * 60 * 24),
   );
+
   const daysRemaining = totalDays - daysUsed;
 
   // Calcular el reembolso proporcional al tiempo de uso
-  return calculateProration(price, daysUsed, totalDays);
+  return calculateProration(price, daysRemaining, totalDays);
 }
 
 /**
@@ -95,9 +97,11 @@ function applyDiscounts(basePrice, discounts) {
   }
 
   // Aplicar cada descuento de forma acumulativa sobre el precio base
-  return Math.round(
-    discounts.reduce((currentPrice, d) => currentPrice * (1 - d / 100), basePrice) * 100,
-  ) / 100;
+  const totalDiscount = Math.min(
+    discounts.reduce((sum, d) => sum + d, 0),
+    100,
+  );
+  return Math.round(basePrice * (1 - totalDiscount / 100) * 100) / 100;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
