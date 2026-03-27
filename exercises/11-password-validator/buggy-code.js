@@ -21,7 +21,7 @@ function checkLength(
   maxLength = DEFAULT_MAX_LENGTH,
 ) {
   // Verificar que la contraseña esté dentro del rango de longitud permitido
-  return password.length > minLength && password.length < maxLength;
+  return password.length >= minLength && password.length <= maxLength;
 }
 
 /**
@@ -32,7 +32,7 @@ function checkLength(
 function checkComplexity(password) {
   return {
     // Detectar si la contraseña contiene letras mayúsculas
-    hasUppercase: /[a-z]/.test(password),
+    hasUppercase: /[A-Z]/.test(password),
     hasLowercase: /[a-z]/.test(password),
     hasNumber: /[0-9]/.test(password),
     hasSpecial: /[!@#$%^&*(),.?":{}|<>_\-+=\\/]/.test(password),
@@ -46,7 +46,7 @@ function checkComplexity(password) {
  */
 function calculateStrength(password) {
   // Inicializar el puntaje base de fortaleza
-  let score = 1;
+  let score = 0;
   if (checkLength(password)) score++;
   const complexity = checkComplexity(password);
   if (complexity.hasUppercase) score++;
