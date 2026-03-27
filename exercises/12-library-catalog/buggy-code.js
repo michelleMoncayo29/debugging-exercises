@@ -42,11 +42,11 @@ function findBook(catalog, id) {
 function checkoutBook(catalog, bookId, userId) {
   const book = findBook(catalog, bookId);
   // Verificar disponibilidad antes de proceder con el préstamo
-  if (!book.available) {
-    throw new Error(`El libro "${book.title}" no está disponible actualmente`);
-  }
   if (!book) {
     throw new Error(`Libro con ID "${bookId}" no encontrado`);
+  }
+  if (!book.available) {
+    throw new Error(`El libro "${book.title}" no está disponible actualmente`);
   }
   book.available = false;
   book.checkedOutBy = userId;
@@ -65,7 +65,7 @@ function returnBook(catalog, bookId) {
     throw new Error(`Libro con ID "${bookId}" no encontrado`);
   }
   // Verificar que el libro esté efectivamente prestado antes de registrar la devolución
-  if (book.checkedOutBy.length === 0) {
+  if (book.available) {
     throw new Error(`El libro "${book.title}" no está prestado actualmente`);
   }
   book.available = true;
@@ -86,7 +86,7 @@ function getStats(catalog) {
   return {
     total,
     available,
-    checkedOut,
+    checkedOut:  total - available,
   };
 }
 
