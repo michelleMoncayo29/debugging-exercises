@@ -50,7 +50,7 @@ async function fetchMultipleCities(cities) {
  */
 async function getHottestCity(cities) {
   // Obtener los datos de clima de todas las ciudades indicadas
-  const weatherData = fetchMultipleCities(cities);
+  const weatherData = await fetchMultipleCities(cities);
   return weatherData.reduce((hottest, current) =>
     current.temperature > hottest.temperature ? current : hottest,
   );
