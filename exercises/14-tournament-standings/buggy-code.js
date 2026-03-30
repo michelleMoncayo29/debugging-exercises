@@ -31,8 +31,11 @@ function createTeam(name) {
  */
 function calculatePoints(wins, draws) {
   // Sistema de puntuación: victoria suma puntos, empate suma 1 punto
-  return wins * 2 + draws * 1;
+  // console.log('hola');
+  return wins * 3 + draws * 1;
 }
+
+calculatePoints(1, 0);
 
 /**
  * Registra el resultado de un partido y actualiza las estadísticas de ambos equipos
@@ -46,23 +49,23 @@ function recordMatch(homeTeam, awayTeam, homeScore, awayScore) {
   awayTeam.played++;
   // Actualizar estadísticas de goles para ambos equipos
   homeTeam.goalsFor += homeScore;
-  homeTeam.goalsAgainst += awayScore;
-  awayTeam.goalsFor += homeScore;
-  awayTeam.goalsAgainst += awayScore;
-
-  if (homeScore > awayScore) {
-    homeTeam.wins++;
-    awayTeam.losses++;
-  } else if (homeScore < awayScore) {
-    awayTeam.wins++;
-    homeTeam.losses++;
-  } else {
-    homeTeam.draws++;
-    awayTeam.draws++;
-  }
-
-  homeTeam.points = calculatePoints(homeTeam.wins, homeTeam.draws);
-  awayTeam.points = calculatePoints(awayTeam.wins, awayTeam.draws);
+    homeTeam.goalsAgainst += awayScore;
+    awayTeam.goalsFor += awayScore;
+    awayTeam.goalsAgainst += homeScore;
+  
+    if (homeScore > awayScore) {
+      homeTeam.wins++;
+      awayTeam.losses++;
+    } else if (homeScore < awayScore) {
+      awayTeam.wins++;
+      homeTeam.losses++;
+    } else {
+      homeTeam.draws++;
+      awayTeam.draws++;
+    }
+  
+    homeTeam.points = calculatePoints(homeTeam.wins, homeTeam.draws);
+    awayTeam.points = calculatePoints(awayTeam.wins, awayTeam.draws);
 }
 
 /**
@@ -83,7 +86,7 @@ function getGoalDifference(team) {
 function getStandings(teams) {
   // Ordenar equipos según los criterios de clasificación del torneo
   return [...teams].sort((a, b) => {
-    if (b.points !== a.points) return a.points - b.points;
+    if (b.points !== a.points) return b.points - a.points;
     const gdDiff = getGoalDifference(b) - getGoalDifference(a);
     if (gdDiff !== 0) return gdDiff;
     return b.goalsFor - a.goalsFor;
@@ -104,5 +107,5 @@ if (require.main === module) {
   const teamA = createTeam('Real Madrid');
   const teamB = createTeam('Barcelona');
   recordMatch(teamA, teamB, 2, 1);
-  console.log(getStandings([teamA, teamB]));
+  // console.log(getStandings([teamA, teamB]));
 }
