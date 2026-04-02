@@ -34,7 +34,8 @@ class Asset {
   getAverageCost() {
     if (this.transactions.length === 0) return 0;
     const totalInvested = this.getTotalInvested();
-    return totalInvested / this.transactions.length;
+    const totalUnits = this.getTotalUnits();
+    return totalInvested / totalUnits;
   }
 
   getCurrentValue(currentPrice) {
