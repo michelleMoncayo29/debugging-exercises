@@ -55,7 +55,7 @@ class PriceCalculator {
   calculateFare(ride) {
     const distanceFare = this.getDistanceFare(ride);
     const timeFare = this.getTimeFare(ride);
-    return this.BASE_FARE * ride.surge + distanceFare + timeFare;
+    return (this.BASE_FARE + distanceFare + timeFare) * ride.surge;
   }
 
   getBreakdown(ride) {
