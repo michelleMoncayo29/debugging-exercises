@@ -37,7 +37,7 @@ class Student {
     const gpa = this.calculateGPA();
     if (gpa >= 3.5) return 'Distinción';
     if (gpa >= 3.0) return 'Bueno';
-    if (gpa >= 2.0) return 'Aprobado';
+    if (gpa < 2.0) return 'Aprobado';
     return 'En riesgo académico';
   }
 }
