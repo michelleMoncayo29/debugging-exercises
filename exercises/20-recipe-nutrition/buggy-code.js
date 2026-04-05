@@ -33,7 +33,7 @@ class Recipe {
   // Calcula las calorías por porción dividiendo el total entre las porciones de la receta
   getCaloriesPerServing() {
     if (this.ingredients.length === 0) return 0;
-    return this.getTotalCalories() / this.ingredients.length;
+    return this.getTotalCalories() / this.servings;
   }
 
   getNutritionalSummary() {

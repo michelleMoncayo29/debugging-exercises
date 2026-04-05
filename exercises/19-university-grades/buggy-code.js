@@ -29,15 +29,16 @@ class Student {
   // Calcula el GPA ponderado por créditos de cada materia
   calculateGPA() {
     if (this.courses.length === 0) return 0.0;
-    const totalPoints = this.courses.reduce((sum, c) => sum + c.gradePoints, 0);
-    return totalPoints / this.courses.length;
+    const totalWeighted = this.courses.reduce((sum, c) => sum + c.gradePoints * c.creditHours, 0);
+    const totalCredits = this.getTotalCredits();
+    return totalWeighted / totalCredits;
   }
 
   getAcademicStatus() {
     const gpa = this.calculateGPA();
     if (gpa >= 3.5) return 'Distinción';
     if (gpa >= 3.0) return 'Bueno';
-    if (gpa < 2.0) return 'Aprobado';
+    if (gpa >= 2.0) return 'Aprobado';
     return 'En riesgo académico';
   }
 }
