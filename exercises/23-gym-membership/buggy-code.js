@@ -28,7 +28,7 @@ class Membership {
   // Calcula la fecha de vencimiento de la membresía sumando la duración en meses
   getExpiryDate() {
     const expiry = new Date(this.startDate);
-    expiry.setDate(expiry.getDate() + this.durationMonths * 30);
+    expiry.setMonth(expiry.getMonth() + this.durationMonths);
     return expiry;
   }
 

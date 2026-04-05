@@ -37,7 +37,7 @@ class Department {
 class PayrollCalculator {
   // Calcula el salario bruto mensual de un empleado a partir de su salario anual
   calculateMonthlyGross(employee) {
-    return employee.annualSalary / 52;
+    return employee.annualSalary / 12;
   }
 
   calculateTaxAmount(employee, taxRate) {
