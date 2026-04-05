@@ -39,7 +39,7 @@ class Analytics {
   // Calcula el engagement rate como el total de interacciones relativo a la audiencia del autor
   getEngagementRate() {
     const totalInteractions = this.getTotalLikes() + this.getTotalComments();
-    return totalInteractions / this.posts.length;
+    return totalInteractions / this.author.followers;
   }
 
   getAverageCommentsPerPost() {
