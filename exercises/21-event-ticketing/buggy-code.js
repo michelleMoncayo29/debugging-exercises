@@ -21,7 +21,7 @@ class DiscountEngine {
 
   // Calcula el porcentaje de descuento según la cantidad de tickets
   calculateGroupDiscount(quantity) {
-    if (quantity > this.GROUP_MIN) {
+    if (quantity >= this.GROUP_MIN) {
       return this.GROUP_DISCOUNT;
     }
     return 0;
