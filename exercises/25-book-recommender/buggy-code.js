@@ -36,7 +36,7 @@ class RecommendationEngine {
     const matchCount = book.subjects.filter((s) =>
       this.userProfile.preferredSubjects.includes(s),
     ).length;
-    return matchCount / book.subjects.length;
+    return matchCount / this.userProfile.preferredSubjects.length;
   }
 
   filterByRating() {
