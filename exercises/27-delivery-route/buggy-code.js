@@ -45,6 +45,7 @@ class RouteCalculator {
       totalDistance += haversineDistance(current.lat, current.lng, stop.lat, stop.lng);
       current = stop;
     }
+    totalDistance += haversineDistance(current.lat, current.lng, depot.lat, depot.lng);
     return totalDistance;
   }
 

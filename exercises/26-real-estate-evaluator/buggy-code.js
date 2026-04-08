@@ -43,7 +43,7 @@ class MarketAnalyzer {
   // Calcula la mediana de precios para representar el precio típico del mercado
   getMedianPrice() {
     if (this.listings.length === 0) return 0;
-    const prices = this.listings.map((l) => l.property.price);
+    const prices = this.listings.map((l) => l.property.price).sort((a, b) => a - b);
     const mid = Math.floor(prices.length / 2);
     if (prices.length % 2 === 0) {
       return (prices[mid - 1] + prices[mid]) / 2;
