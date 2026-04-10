@@ -39,7 +39,7 @@ class Portfolio {
     return this.assets.map((asset) => {
       const currentPrice = prices[asset.coinId] || 0;
       const currentValue = asset.getCurrentValue(currentPrice);
-      const targetValue = totalValue / this.assets.length;
+      const targetValue = (asset.targetPercentage / 100) * totalValue;
       const difference = targetValue - currentValue;
 
       return {
