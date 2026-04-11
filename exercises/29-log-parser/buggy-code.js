@@ -16,7 +16,7 @@ function parseLogLine(line) {
   const match = line.match(LOG_PATTERN);
   if (!match) return null;
 
-  const [, message, timestamp, level] = match;
+  const [, level, timestamp, message] = match;
   return { level, timestamp, message };
 }
 
