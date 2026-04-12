@@ -4,7 +4,7 @@
  * Módulo para validar y extraer direcciones de email desde texto libre.
  */
 
-const EMAIL_PATTERN = /[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/g;
+const EMAIL_PATTERN = /[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/gi;
 
 /**
  * Verifica si una cadena es un email válido.
