@@ -36,7 +36,7 @@ function encode(str) {
 function decode(str) {
   if (!str) return '';
 
-  return str.replace(/(\d)([a-zA-Z])/g, (_, count, char) => {
+  return str.replace(/(\d+)([a-zA-Z])/g, (_, count, char) => {
     return char.repeat(parseInt(count, 10));
   });
 }
