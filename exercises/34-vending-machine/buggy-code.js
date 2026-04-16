@@ -18,7 +18,7 @@ function calculateChange(paid, price, availableCoins) {
 
   if (changeAmount === 0) return { coins: [], possible: true };
 
-  const sortedCoins = [...availableCoins].sort((a, b) => a - b);
+  const sortedCoins = [...availableCoins].sort((a, b) => b - a);
 
   const usedCoins = [];
   let remaining = changeAmount;
