@@ -30,7 +30,7 @@ function rankHand(hand) {
   const [first, second] = freq;
 
   if (first === 4) return 'four_of_a_kind';
-  if (first === 3 || second === 2) return 'full_house';
+  if (first === 3 && second === 2) return 'full_house';
   if (first === 3) return 'three_of_a_kind';
   if (first === 2 && second === 2) return 'two_pair';
   if (first === 2) return 'one_pair';
