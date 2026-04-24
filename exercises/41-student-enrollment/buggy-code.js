@@ -48,7 +48,7 @@ class EnrollmentSystem {
   // Verifica que el estudiante tenga los prerequisitos necesarios
   hasPrerequisites(student, course) {
     // Usa some en lugar de every: aprueba si tiene al menos UN prerequisito
-    return course.prerequisites.some(prereqId =>
+    return course.prerequisites.every(prereqId =>
       student.completedCourses.includes(prereqId)
     );
   }
