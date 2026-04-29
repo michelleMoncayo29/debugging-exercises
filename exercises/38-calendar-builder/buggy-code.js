@@ -17,6 +17,16 @@ function getDaysInMonth(year, month) {
 }
 
 /**
+ * @param {number} sundayBasedDay
+ * @returns {number}
+*/
+ 
+
+function toMondayIndex(sundayBasedDay) {
+  return (sundayBasedDay + 6) % 7;
+}
+
+/**
  * Construye la cuadrícula del calendario para un mes.
  * @param {number} year
  * @param {number} month - 1-indexed
@@ -24,7 +34,7 @@ function getDaysInMonth(year, month) {
  */
 function buildCalendar(year, month) {
   const totalDays = getDaysInMonth(year, month);
-  const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
+    const firstDayOfWeek = toMondayIndex(new Date(year, month - 1, 1).getDay());
 
   const weeks = [];
   let week = Array(7).fill(null);

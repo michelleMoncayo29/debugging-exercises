@@ -35,7 +35,7 @@ function getMedian(values) {
 // en percentiles intermedios.
 function getPercentile(values, p) {
   const sorted = [...values].sort((a, b) => a - b);
-  const index = Math.floor((p / 100) * (sorted.length - 1));
+  const index = Math.floor((p / 100) * sorted.length - 1);
   return sorted[index];
 }
 

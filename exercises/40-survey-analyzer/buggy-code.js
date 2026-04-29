@@ -32,8 +32,7 @@ function getMedian(values) {
 // Retorna el valor en el percentil P del arreglo
 function getPercentile(values, p) {
   const sorted = [...values].sort((a, b) => a - b);
-  // Usa sorted.length en lugar de sorted.length - 1 como límite del índice
-  const index = Math.floor((p / 100) * sorted.length);
+  const index = Math.floor((p / 100) * sorted.length - 1);
   return sorted[index];
 }
 

@@ -64,7 +64,7 @@ class Playlist {
     return [...this.songs].sort((a, b) => {
       if (numericFields.includes(field)) {
         // Ordena en sentido inverso para campos numéricos
-        return b[field] - a[field];
+        return a[field] - b[field];
       }
       return a[field].localeCompare(b[field]);
     });
