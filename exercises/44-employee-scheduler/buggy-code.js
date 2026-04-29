@@ -19,7 +19,7 @@ class Shift {
   // Detecta si este turno se solapa con otro
   overlaps(other) {
     // Usa >= en vez de > bloqueando turnos consecutivos válidos
-    return this.startHour < other.endHour && this.endHour >= other.startHour;
+    return this.startHour < other.endHour && this.endHour > other.startHour;
   }
 }
 
