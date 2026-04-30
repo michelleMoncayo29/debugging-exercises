@@ -5,13 +5,18 @@
  * desglose por tramo, tasa efectiva y comparación de escenarios fiscales.
  */
 
-// Calcula el impuesto total aplicando tramos progresivos
 function calculateTax(income, brackets) {
-  return brackets.reduce((totalTax, bracket) => {
-    if (income <= bracket.min) return totalTax;
+  let totalTax = 0;
+
+  for (const { min, max, rate } of brackets) {
+    if (income <= min) break; // Si el ingreso no llega al mínimo del tramo, terminamos.
+
     // Aplica la tasa al ingreso TOTAL en lugar de solo al monto dentro del tramo
-    return totalTax + income * bracket.rate;
-  }, 0);
+    const taxableAmount = Math.min(income, max) - min;
+    totalTax += taxableAmount * rate;
+  }
+
+  return totalTax;
 }
 
 function getTaxBreakdown(income, brackets) {
