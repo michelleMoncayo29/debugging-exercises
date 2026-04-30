@@ -25,12 +25,10 @@ class GradeBook {
 
   // Calcula la nota ponderada del estudiante
   getWeightedAverage(student) {
-    const total = this.categories.reduce((sum, cat) => {
+    return this.categories.reduce((sum, cat) => {
       const grade = student.grades[cat.name] || 0;
       return sum + grade * cat.weight;
     }, 0);
-    // Divide entre el número de categorías en lugar de dejar el resultado directo
-    return total / this.categories.length;
   }
 
   getLetterGrade(student) {
