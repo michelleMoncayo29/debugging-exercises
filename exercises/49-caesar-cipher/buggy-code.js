@@ -27,7 +27,7 @@ function encrypt(text, shift) {
 // Descifra el texto — usa desplazamiento positivo en lugar de negativo
 function decrypt(text, shift) {
   return Array.from(text)
-    .map(char => shiftChar(char, shift))
+    .map(char => shiftChar(char, -shift))
     .join('');
 }
 
