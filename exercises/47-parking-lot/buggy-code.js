@@ -27,7 +27,7 @@ class ParkingLot {
   }
 
   // Busca el primer spot libre, sin respetar la compatibilidad de tipos
-  findSpot(vehicleSize) {
+    findSpot(vehicleSize) {
     const sizeIndex = SIZE_ORDER.indexOf(vehicleSize);
     const compatibleTypes = SIZE_ORDER.slice(sizeIndex);
     for (const type of compatibleTypes) {
@@ -39,7 +39,8 @@ class ParkingLot {
 
   park(vehicle) {
     // Asigna cualquier spot libre ignorando el tipo del vehículo
-    const spot = this.spots.find(s => s.vehicle === null);
+    // const spot = this.spots.find(s => s.vehicle === null);
+    const spot = this.findSpot(vehicle.size);
     if (!spot) {
       throw new Error(`No hay spots disponibles para vehículo de tamaño ${vehicle.size}`);
     }
