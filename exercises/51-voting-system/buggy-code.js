@@ -17,7 +17,7 @@ function getWinner(ballots) {
   if (ballots.length === 0) return null;
   const tally = tallyVotes(ballots);
   const total = ballots.length;
-  const winner = Object.entries(tally).find(([, votes]) => votes / total >= 0.5);
+  const winner = Object.entries(tally).find(([, votes]) => votes / total > 0.5);
   return winner ? winner[0] : null;
 }
 
