@@ -14,23 +14,25 @@ function applyFlatDiscount(price, amount) {
 }
 
 function stackDiscounts(price, discountRates) {
-  const totalRate = discountRates.reduce((sum, rate) => sum + rate, 0);
-  return applyPercentageDiscount(price, totalRate);
+  return discountRates.reduce(
+    (currentPrice, rate) => applyPercentageDiscount(currentPrice, rate),
+    price,
+  );
 }
 
 function calculateCouponDiscount(price, coupon) {
   if (!coupon || coupon.expired) return price;
-  if (coupon.type === 'percentage') {
+  if (coupon.type === "percentage") {
     return applyPercentageDiscount(price, coupon.value);
   }
-  if (coupon.type === 'flat') {
+  if (coupon.type === "flat") {
     return applyFlatDiscount(price, coupon.value);
   }
   return price;
 }
 
 function getBestOffer(price, offerGroups) {
-  const finalPrices = offerGroups.map(group => stackDiscounts(price, group));
+  const finalPrices = offerGroups.map((group) => stackDiscounts(price, group));
   return Math.min(...finalPrices);
 }
 
@@ -43,13 +45,13 @@ function calculateOrderTotal(items) {
 function applyVolumeDiscount(quantity, tiers) {
   const tier = [...tiers]
     .sort((a, b) => b.minQuantity - a.minQuantity)
-    .find(t => quantity >= t.minQuantity);
+    .find((t) => quantity >= t.minQuantity);
   return tier ? tier.rate : 0;
 }
 
 function calculateBuyXGetY(items, rule) {
   const { buyX, getY, productId, discountRate } = rule;
-  const eligible = items.find(i => i.id === productId);
+  const eligible = items.find((i) => i.id === productId);
   if (!eligible) return 0;
   const sets = Math.floor(eligible.quantity / (buyX + getY));
   return sets * getY * eligible.price * discountRate;
@@ -58,7 +60,7 @@ function calculateBuyXGetY(items, rule) {
 function applyOrderThresholdDiscount(total, thresholds) {
   const threshold = [...thresholds]
     .sort((a, b) => b.minAmount - a.minAmount)
-    .find(t => total >= t.minAmount);
+    .find((t) => total >= t.minAmount);
   return threshold ? threshold.rate : 0;
 }
 
@@ -71,7 +73,12 @@ function redeemPoints(total, points, pointValue = 0.01) {
   return Math.round((total - discount) * 100) / 100;
 }
 
-function formatDiscountSummary(originalPrice, finalPrice, coupon, stackedRates) {
+function formatDiscountSummary(
+  originalPrice,
+  finalPrice,
+  coupon,
+  stackedRates,
+) {
   const totalSaved = Math.round((originalPrice - finalPrice) * 100) / 100;
   const savingsPercent = Math.round((totalSaved / originalPrice) * 10000) / 100;
   return {
@@ -135,17 +142,16 @@ function applyMembershipTier(price, tier) {
 
 function compareOfferStrategies(price, strategies) {
   return strategies
-    .map(strategy => ({
+    .map((strategy) => ({
       name: strategy.name,
       finalPrice: stackDiscounts(price, strategy.rates),
-      totalSaved: Math.round(
-        (price - stackDiscounts(price, strategy.rates)) * 100
-      ) / 100,
+      totalSaved:
+        Math.round((price - stackDiscounts(price, strategy.rates)) * 100) / 100,
     }))
     .sort((a, b) => a.finalPrice - b.finalPrice);
 }
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     applyPercentageDiscount,
     applyFlatDiscount,
@@ -167,4 +173,3 @@ if (typeof module !== 'undefined' && module.exports) {
     compareOfferStrategies,
   };
 }
-

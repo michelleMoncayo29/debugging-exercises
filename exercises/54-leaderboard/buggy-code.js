@@ -32,7 +32,7 @@ class Leaderboard {
       throw new Error(`Player ${playerId} not found`);
     }
     const playerScores = this.scores.get(playerId);
-    return playerScores[0];
+    return Math.max(...playerScores);
   }
 
   _buildSortedEntries() {
