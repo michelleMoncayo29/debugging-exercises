@@ -83,7 +83,11 @@ class StockPortfolio {
 
   getAnnualizedReturn(totalReturn, years) {
     if (years <= 0) throw new Error('Years must be positive');
-    return Math.round((totalReturn / years) * 100000) / 100000;
+    // (1 + retornoTotal) ^ (1 / años) - 1;
+
+    // return Math.round((1 + totalReturn) * (1 / years) - 1)
+    // return Math.round((totalReturn / years) * 100000) / 100000;
+    return Math.round((Math.pow(1 + totalReturn, 1 / years) - 1) * 100000) / 100000;
   }
 
   getDiversification(prices) {

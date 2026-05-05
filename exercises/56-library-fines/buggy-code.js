@@ -68,7 +68,8 @@ class LibrarySystem {
   calculateFine(dueDate, returnDate) {
     const due = new Date(dueDate);
     const returned = new Date(returnDate);
-    const daysOverdue = Math.floor((due - returned) / MS_PER_DAY);
+
+    const daysOverdue = Math.floor((returned - due) / MS_PER_DAY);
     return Math.max(0, daysOverdue) * this.dailyFineRate;
   }
 
