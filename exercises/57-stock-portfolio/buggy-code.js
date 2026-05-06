@@ -11,13 +11,14 @@ class StockPortfolio {
   }
 
   addPosition(symbol, shares, purchasePrice, purchaseDate) {
-    if (shares <= 0) throw new Error('Shares must be a positive number');
-    if (purchasePrice <= 0) throw new Error('Purchase price must be positive');
+    if (shares <= 0) throw new Error("Shares must be a positive number");
+    if (purchasePrice <= 0) throw new Error("Purchase price must be positive");
 
     if (this.positions.has(symbol)) {
       const existing = this.positions.get(symbol);
       const totalShares = existing.shares + shares;
-      const totalCost = existing.avgCost * existing.shares + purchasePrice * shares;
+      const totalCost =
+        existing.avgCost * existing.shares + purchasePrice * shares;
       existing.avgCost = totalCost / totalShares;
       existing.shares = totalShares;
       existing.lots.push({ shares, purchasePrice, purchaseDate });
@@ -40,7 +41,8 @@ class StockPortfolio {
   }
 
   removePosition(symbol) {
-    if (!this.positions.has(symbol)) throw new Error(`Position ${symbol} not found`);
+    if (!this.positions.has(symbol))
+      throw new Error(`Position ${symbol} not found`);
     this.positions.delete(symbol);
   }
 
@@ -51,7 +53,9 @@ class StockPortfolio {
 
   getPositionReturn(symbol, currentPrice) {
     const pos = this.getPosition(symbol);
-    return Math.round(((currentPrice - pos.avgCost) / pos.avgCost) * 10000) / 10000;
+    return (
+      Math.round(((currentPrice - pos.avgCost) / pos.avgCost) * 10000) / 10000
+    );
   }
 
   getPositionProfit(symbol, currentPrice) {
@@ -62,7 +66,7 @@ class StockPortfolio {
   getCostBasis() {
     return [...this.positions.values()].reduce(
       (sum, pos) => sum + pos.avgCost * pos.shares,
-      0
+      0,
     );
   }
 
@@ -82,19 +86,21 @@ class StockPortfolio {
   }
 
   getAnnualizedReturn(totalReturn, years) {
-    if (years <= 0) throw new Error('Years must be positive');
+    if (years <= 0) throw new Error("Years must be positive");
     // (1 + retornoTotal) ^ (1 / años) - 1;
 
     // return Math.round((1 + totalReturn) * (1 / years) - 1)
     // return Math.round((totalReturn / years) * 100000) / 100000;
-    return Math.round((Math.pow(1 + totalReturn, 1 / years) - 1) * 100000) / 100000;
+    return (
+      Math.round((Math.pow(1 + totalReturn, 1 / years) - 1) * 100000) / 100000
+    );
   }
 
   getDiversification(prices) {
     const totalValue = this.getPortfolioValue(prices);
     if (totalValue === 0) return [];
     return [...this.positions.keys()]
-      .map(symbol => {
+      .map((symbol) => {
         const price = prices[symbol] || 0;
         const value = this.getPositionValue(symbol, price);
         return {
@@ -108,8 +114,8 @@ class StockPortfolio {
 
   getTopPerformers(prices) {
     return [...this.positions.keys()]
-      .filter(symbol => prices[symbol] !== undefined)
-      .map(symbol => ({
+      .filter((symbol) => prices[symbol] !== undefined)
+      .map((symbol) => ({
         symbol,
         returnPct: this.getPositionReturn(symbol, prices[symbol]),
         profit: this.getPositionProfit(symbol, prices[symbol]),
@@ -120,8 +126,11 @@ class StockPortfolio {
 
   getUnrealizedGains(prices) {
     return [...this.positions.keys()]
-      .filter(symbol => prices[symbol] !== undefined)
-      .reduce((sum, symbol) => sum + this.getPositionProfit(symbol, prices[symbol]), 0);
+      .filter((symbol) => prices[symbol] !== undefined)
+      .reduce(
+        (sum, symbol) => sum + this.getPositionProfit(symbol, prices[symbol]),
+        0,
+      );
   }
 
   getSectorAllocation(sectorMap, prices) {
@@ -130,7 +139,7 @@ class StockPortfolio {
     if (totalValue === 0) return {};
 
     for (const [symbol] of this.positions.entries()) {
-      const sector = sectorMap[symbol] || 'Unknown';
+      const sector = sectorMap[symbol] || "Unknown";
       const value = this.getPositionValue(symbol, prices[symbol] || 0);
       allocation[sector] = (allocation[sector] || 0) + value;
     }
@@ -139,7 +148,7 @@ class StockPortfolio {
       Object.entries(allocation).map(([sector, value]) => [
         sector,
         Math.round((value / totalValue) * 10000) / 100,
-      ])
+      ]),
     );
   }
 
@@ -149,7 +158,7 @@ class StockPortfolio {
       const targetValue = totalValue * targetPct;
       const currentValue = this.getPositionValue(symbol, prices[symbol] || 0);
       const diff = targetValue - currentValue;
-      const action = diff > 0 ? 'BUY' : diff < 0 ? 'SELL' : 'HOLD';
+      const action = diff > 0 ? "BUY" : diff < 0 ? "SELL" : "HOLD";
       return {
         symbol,
         currentValue: Math.round(currentValue * 100) / 100,
@@ -174,7 +183,6 @@ class StockPortfolio {
   }
 }
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = { StockPortfolio };
 }
-

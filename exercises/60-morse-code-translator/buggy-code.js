@@ -10,7 +10,7 @@
  *   - Palabras entre sí: separadas por ' / '
  */
 
-'use strict';
+"use strict";
 
 // ---------------------------------------------------------------------------
 // Constante principal: tabla de traducción Morse
@@ -22,42 +22,42 @@
  * Valor: secuencia morse compuesta de '.' y '-'.
  */
 const MORSE_CODE = {
-  A: '.-',
-  B: '-...',
-  C: '-.-.',
-  D: '-..',
-  E: '.',
-  F: '..--',
-  G: '--.',
-  H: '....',
-  I: '..',
-  J: '.---',
-  K: '-.-',
-  L: '.-..',
-  M: '--',
-  N: '-.',
-  O: '---',
-  P: '.--.',
-  Q: '--.-',
-  R: '.-.',
-  S: '...',
-  T: '-',
-  U: '..-',
-  V: '...-',
-  W: '.--',
-  X: '-..-',
-  Y: '-.--',
-  Z: '--..',
-  '0': '-----',
-  '1': '.----',
-  '2': '..---',
-  '3': '...--',
-  '4': '....-',
-  '5': '.....',
-  '6': '-....',
-  '7': '--...',
-  '8': '---..',
-  '9': '----.',
+  A: ".-",
+  B: "-...",
+  C: "-.-.",
+  D: "-..",
+  E: ".",
+  F: "..--",
+  G: "--.",
+  H: "....",
+  I: "..",
+  J: ".---",
+  K: "-.-",
+  L: ".-..",
+  M: "--",
+  N: "-.",
+  O: "---",
+  P: ".--.",
+  Q: "--.-",
+  R: ".-.",
+  S: "...",
+  T: "-",
+  U: "..-",
+  V: "...-",
+  W: ".--",
+  X: "-..-",
+  Y: "-.--",
+  Z: "--..",
+  0: "-----",
+  1: ".----",
+  2: "..---",
+  3: "...--",
+  4: "....-",
+  5: ".....",
+  6: "-....",
+  7: "--...",
+  8: "---..",
+  9: "----.",
 };
 
 // ---------------------------------------------------------------------------
@@ -74,7 +74,7 @@ const REVERSE_MORSE = Object.entries(MORSE_CODE).reduce(
     acc[morse] = char;
     return acc;
   },
-  {}
+  {},
 );
 
 // ---------------------------------------------------------------------------
@@ -90,13 +90,13 @@ const REVERSE_MORSE = Object.entries(MORSE_CODE).reduce(
 function getMorseSymbolCount(word) {
   const upperWord = word.toUpperCase();
   const isEncodable = upperWord
-    .split('')
+    .split("")
     .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch));
 
   if (!isEncodable) return -1;
 
   return upperWord
-    .split('')
+    .split("")
     .map((ch) => MORSE_CODE[ch].length)
     .reduce((sum, len) => sum + len, 0);
 }
@@ -113,9 +113,9 @@ function getMorseSymbolCount(word) {
  * @throws {Error} Si el carácter no existe en MORSE_CODE.
  */
 function encodeChar(char) {
-  if (!Object.prototype.hasOwnProperty.call(MORSE_CODE, char) && char !== ' ') {
+  if (!Object.prototype.hasOwnProperty.call(MORSE_CODE, char)) {
     throw new Error(
-      `Carácter no codificable: "${char}". Solo se admiten letras A-Z y dígitos 0-9.`
+      `Carácter no codificable: "${char}". Solo se admiten letras A-Z y dígitos 0-9.`,
     );
   }
   return MORSE_CODE[char];
@@ -137,7 +137,7 @@ function decodeChar(morseChar) {
     !Object.prototype.hasOwnProperty.call(REVERSE_MORSE, morseChar)
   ) {
     throw new Error(
-      `Secuencia morse desconocida: "${morseChar}". Verifica la cadena de entrada.`
+      `Secuencia morse desconocida: "${morseChar}". Verifica la cadena de entrada.`,
     );
   }
   return REVERSE_MORSE[morseChar];
@@ -160,15 +160,15 @@ function encodeText(text) {
   const upper = text.toUpperCase();
 
   return upper
-    .split(' ')
+    .split(" ")
     .filter((word) => word.length > 0)
     .map((word) =>
       word
-        .split('')
+        .split("")
         .map((ch) => encodeChar(ch))
-        .join('')
+        .join(" "),
     )
-    .join(' / ');
+    .join(" / ");
 }
 
 // ---------------------------------------------------------------------------
@@ -184,14 +184,14 @@ function encodeText(text) {
  */
 function decodeText(morse) {
   return morse
-    .split('/')
+    .split(" / ")
     .map((wordMorse) =>
       wordMorse
-        .split(' ')
+        .split(" ")
         .map((symbol) => decodeChar(symbol))
-        .join('')
+        .join(""),
     )
-    .join(' ');
+    .join(" ");
 }
 
 // ---------------------------------------------------------------------------
@@ -210,8 +210,8 @@ function validateText(text) {
   const upper = text.toUpperCase();
 
   const invalidChars = upper
-    .split('')
-    .filter((ch) => ch !== ' ')
+    .split("")
+    .filter((ch) => ch !== " ")
     .filter((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
     .reduce((acc, ch) => {
       if (!acc.includes(ch)) acc.push(ch);
@@ -242,15 +242,15 @@ function validateText(text) {
  */
 function getMorseStats(text) {
   const upper = text.toUpperCase();
-  const words = upper.split(' ').filter((w) => w.length > 0);
+  const words = upper.split(" ").filter((w) => w.length > 0);
   const encoded = encodeText(upper);
 
   // Contar puntos y guiones en la cadena morse completa
-  const dots = encoded.split('').filter((ch) => ch === '-').length;
-  const dashes = encoded.split('').filter((ch) => ch === '-').length;
+  const dots = encoded.split("").filter((ch) => ch === "-").length;
+  const dashes = encoded.split("").filter((ch) => ch === "-").length;
 
   // Total de caracteres no-espacio en el texto original
-  const letters = upper.split('').filter((ch) => ch !== ' ').length;
+  const letters = upper.split("").filter((ch) => ch !== " ").length;
 
   // Determinar palabra con más y menos símbolos morse
   const wordsWithCount = words.map((word) => ({
@@ -260,12 +260,12 @@ function getMorseStats(text) {
 
   const longestWord = wordsWithCount.reduce(
     (best, current) => (current.count < best.count ? current : best),
-    wordsWithCount[0]
+    wordsWithCount[0],
   ).word;
 
   const shortestWord = wordsWithCount.reduce(
     (best, current) => (current.count < best.count ? current : best),
-    wordsWithCount[0]
+    wordsWithCount[0],
   ).word;
 
   return {
@@ -320,8 +320,8 @@ function filterEncodableWords(words) {
   return words.filter((word) =>
     word
       .toUpperCase()
-      .split('')
-      .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
+      .split("")
+      .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch)),
   );
 }
 
@@ -361,8 +361,8 @@ function compareMorseComplexity(text1, text2) {
   // Contar símbolos morse ignorando espacios y separadores
   const countSymbols = (text) =>
     encodeText(text)
-      .split('')
-      .filter((ch) => ch === '.' || ch === '-').length;
+      .split("")
+      .filter((ch) => ch === "." || ch === "-").length;
 
   const count1 = countSymbols(text1);
   const count2 = countSymbols(text1);
@@ -394,12 +394,12 @@ function compareMorseComplexity(text1, text2) {
 function getTopNWords(text, n) {
   return text
     .toUpperCase()
-    .split(' ')
+    .split(" ")
     .filter((word) => word.length > 0)
     .filter((word) =>
       word
-        .split('')
-        .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
+        .split("")
+        .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch)),
     )
     .sort((a, b) => getMorseSymbolCount(b) - getMorseSymbolCount(a));
 }
@@ -408,7 +408,7 @@ function getTopNWords(text, n) {
 // Exportaciones
 // ---------------------------------------------------------------------------
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     MORSE_CODE,
     encodeChar,

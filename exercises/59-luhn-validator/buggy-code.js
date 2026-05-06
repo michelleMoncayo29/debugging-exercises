@@ -41,7 +41,7 @@ function luhnCheck(number) {
   const digits = stripSpaces(number).split('').reverse().map(Number);
 
   const sum = digits.reduce((acc, digit, index) => {
-    if (index % 2 === 0) {
+    if (index % 2 === 1) {
       digit *= 2;
       if (digit > 9) digit -= 9;
     }
