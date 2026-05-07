@@ -210,8 +210,8 @@ function validateText(text) {
   const upper = text.toUpperCase();
 
   const invalidChars = upper
-    .split("")
-    .filter((ch) => ch !== " ")
+    .split('')
+    .filter((ch) => ch !== ' ')
     .filter((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
     .reduce((acc, ch) => {
       if (!acc.includes(ch)) acc.push(ch);

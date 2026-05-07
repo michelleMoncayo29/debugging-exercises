@@ -188,7 +188,8 @@ function roi(initialInvestment, finalValue) {
     throw new Error('La inversión inicial debe ser mayor que cero.');
   }
 
-  const result = (initialInvestment - finalValue) / initialInvestment * 100;
+  const result = (finalValue - initialInvestment) / initialInvestment * 100;
+
   return roundTo(result, 4);
 }
 
