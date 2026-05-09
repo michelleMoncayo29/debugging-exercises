@@ -100,8 +100,8 @@ class ContactBook {
    * @returns {object|null} El contacto encontrado o null
    */
   findByPhone(phone) {
-    const results = this._contacts.filter((c) => c.phone === phone);
-    return results.length > 0 ? results : null;
+    const contact = this._contacts.find((c) => c.phone === phone);
+    return contact !== undefined ? contact : null;
   }
 
   // ---------------------------------------------------------------------------
