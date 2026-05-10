@@ -151,6 +151,7 @@ class FlashcardDeck {
   markCorrect(id) {
     const card = this._findCardOrThrow(id);
     card.attempts += 1;
+    card.correct += 1;
   }
 
   /**
