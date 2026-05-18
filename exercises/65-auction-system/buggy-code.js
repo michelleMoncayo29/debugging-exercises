@@ -141,7 +141,7 @@ class AuctionHouse {
     item.open = false;
 
     const topWinner = this.getCurrentWinner(itemId);
-    const sold = topWinner !== null && topWinner.amount > item.reservePrice;
+    const sold = topWinner !== null && topWinner.amount >= item.reservePrice;
 
     const result = {
       itemId: item.id,
