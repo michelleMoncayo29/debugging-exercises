@@ -96,7 +96,7 @@ function getTotalPaid(expenses, person) {
  */
 function getTotalOwed(expenses, person) {
   return expenses
-    .filter((e) => e.payer === person)
+    .filter((e) => e.participants.includes(person))
     .reduce((sum, e) => sum + e.perPersonCost, 0);
 }
 
