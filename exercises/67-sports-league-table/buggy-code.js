@@ -63,8 +63,8 @@ function recordMatch(league, homeTeam, awayTeam, homeGoals, awayGoals) {
   league.push({
     team: awayTeam,
     opponent: homeTeam,
-    goalsFor: homeGoals,
-    goalsAgainst: awayGoals,
+    goalsFor: awayGoals,
+    goalsAgainst: homeGoals,
     result: awayResult,
   });
 }
@@ -134,6 +134,7 @@ function getStandings(league) {
   const rows = Object.values(teamMap).map((row) => ({
     ...row,
     goalDiff: row.goalsFor - row.goalsAgainst,
+    // CORREGIDO: los puntos se calculan correctamente: victorias*3 + empates*1
     points: row.won * 3 + row.drawn * 1,
   }));
 
