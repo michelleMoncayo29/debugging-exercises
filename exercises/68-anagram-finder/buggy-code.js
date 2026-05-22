@@ -145,7 +145,7 @@ function filterWordsWithMinAnagrams(words, minAnagrams) {
     const key = sortLetters(word);
     const groupSize = familyMap.get(key).length;
     const anagramCount = groupSize - 1;
-    return anagramCount > minAnagrams;
+    return anagramCount >= minAnagrams;
   });
 }
 

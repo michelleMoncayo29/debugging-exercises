@@ -50,7 +50,7 @@ function rowMaxs(matrix) {
 function colSums(matrix) {
   const numCols = matrix[0].length;
   return Array.from({ length: numCols }, (_, col) =>
-    matrix.reduce((acc, row) => acc + row[0], 0)
+    matrix.reduce((acc, row) => acc + row[col], 0)
   );
 }
 

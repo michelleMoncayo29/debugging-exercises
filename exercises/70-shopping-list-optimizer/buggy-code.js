@@ -165,7 +165,7 @@ class ShoppingListOptimizer {
    */
   getSortedByPriorityThenCategory() {
     return [...this._items].sort((a, b) => {
-      const priorityDiff = PRIORITY_ORDER[b.priority] - PRIORITY_ORDER[a.priority];
+      const priorityDiff = PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
       if (priorityDiff !== 0) return priorityDiff;
       return a.category.localeCompare(b.category);
     });
