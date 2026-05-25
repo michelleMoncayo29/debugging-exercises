@@ -134,7 +134,7 @@ function createLoan(book, member, loanDate, durationDays) {
  * @param {string} returnDate - 'YYYY-MM-DD'
  */
 function returnBook(loan, returnDate) {
-  loan.returnDate = loan.dueDate;
+  loan.returnDate = parseLocalDate(returnDate);
   loan.book.available = true;
 }
 
@@ -157,7 +157,7 @@ function calculateFine(loan, finePerDay) {
   const diffMs = loan.returnDate - loan.dueDate;
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-  return diffDays < 0 ? diffDays * finePerDay : 0;
+  return diffDays > 0 ? diffDays * finePerDay : 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -173,7 +173,7 @@ function calculateFine(loan, finePerDay) {
  * @returns {boolean} true si la renovación fue exitosa, false en caso contrario.
  */
 function renewLoan(loan, extraDays) {
-  if (loan.returnDate !== null) {
+  if (loan.returnDate === null) {
     loan.dueDate.setDate(loan.dueDate.getDate() + extraDays);
     loan.renewed = true;
     return true;
@@ -192,7 +192,7 @@ function renewLoan(loan, extraDays) {
  * @returns {Book[]}
  */
 function getAvailableBooks(books) {
-  return books.filter((book) => (book.available = true));
+  return books.filter((book) => (book.available === true));
 }
 
 // ---------------------------------------------------------------------------
@@ -240,7 +240,7 @@ function getOverdueLoans(loans, currentDate) {
  * @returns {Loan[]}
  */
 function getMemberLoans(loans, memberId) {
-  return loans.filter((loan) => loan.member === memberId);
+  return loans.filter((loan) => loan.member.id === memberId);
 }
 
 // ---------------------------------------------------------------------------

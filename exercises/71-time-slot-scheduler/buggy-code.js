@@ -59,7 +59,7 @@ class TimeSlot {
     if (this.day !== other.day || this.room !== other.room) {
       return false;
     }
-    return this.start <= other.end && other.start < this.end;
+    return this.start < other.end && other.start < this.end;
   }
 
   /**
