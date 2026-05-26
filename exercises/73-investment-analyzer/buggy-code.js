@@ -66,7 +66,7 @@ class Investment {
  * @returns {number} ROI en porcentaje (puede ser negativo si hay pérdida).
  */
 function calculateROI(initialValue, finalValue) {
-  return ((finalValue - initialValue) / finalValue) * 100;
+  return ((finalValue - initialValue) / initialValue) * 100;
 }
 
 // ---------------------------------------------------------------------------
@@ -106,7 +106,7 @@ function calculateAnnualizedROI(roi, years) {
  * @returns {number} Valor futuro redondeado a 2 decimales.
  */
 function calculateFutureValue(presentValue, annualRate, years) {
-  return parseFloat((presentValue * (1 + annualRate) * years).toFixed(2));
+  return parseFloat((presentValue * Math.pow(1 + annualRate, years)).toFixed(2));
 }
 
 // ---------------------------------------------------------------------------
@@ -147,7 +147,7 @@ function calculatePresentValue(futureValue, annualRate, years) {
  * @returns {number} CAGR en porcentaje, redondeado a 4 decimales.
  */
 function calculateCAGR(startValue, endValue, years) {
-  return parseFloat(((Math.pow(endValue / startValue, years) - 1) * 100).toFixed(4));
+  return parseFloat(((Math.pow(endValue / startValue, 1 / years) - 1) * 100).toFixed(4));
 }
 
 // ---------------------------------------------------------------------------
@@ -187,7 +187,7 @@ function calculatePaybackPeriod(initialInvestment, annualReturn) {
  * @returns {number} Años aproximados para duplicar la inversión.
  */
 function calculateRuleOf72(annualRatePercent) {
-  return parseFloat((annualRatePercent / 72).toFixed(2));
+  return parseFloat((72 / annualRatePercent).toFixed(2));
 }
 
 // ---------------------------------------------------------------------------
@@ -209,8 +209,9 @@ function calculateRuleOf72(annualRatePercent) {
  * @returns {number} Unidades mínimas a vender para no tener pérdidas.
  */
 function calculateBreakEven(fixedCosts, pricePerUnit, variableCostPerUnit) {
-  if (pricePerUnit <= 0) return Infinity;
-  return Math.ceil(fixedCosts / pricePerUnit);
+  const contributionMargin = pricePerUnit - variableCostPerUnit;
+  if (contributionMargin <= 0) return Infinity;
+  return Math.ceil(fixedCosts / contributionMargin);
 }
 
 // ---------------------------------------------------------------------------
@@ -233,7 +234,7 @@ function calculateVolatility(returns) {
   if (returns.length < 2) return 0;
   const mean = returns.reduce((sum, r) => sum + r, 0) / returns.length;
   const squaredDiffs = returns.map((r) => Math.pow(r - mean, 2));
-  const variance = squaredDiffs.reduce((sum, d) => sum + d, 0) / returns.length;
+  const variance = squaredDiffs.reduce((sum, d) => sum + d, 0) / (returns.length - 1);
   return parseFloat(Math.sqrt(variance).toFixed(4));
 }
 
@@ -301,7 +302,7 @@ function filterByMinROI(investments, minROI) {
  * @returns {Investment[]} Copia ordenada descendentemente.
  */
 function rankByROI(investments) {
-  return [...investments].sort((a, b) => a.getROI() - b.getROI());
+  return [...investments].sort((a, b) => b.getROI() - a.getROI());
 }
 
 // ---------------------------------------------------------------------------

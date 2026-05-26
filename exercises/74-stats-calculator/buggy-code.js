@@ -96,7 +96,7 @@ function calculateMean(data) {
  * @returns {number}
  */
 function calculateMedian(data) {
-  const sorted = [...data];
+  const sorted = [...data].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 !== 0
     ? sorted[mid]
@@ -125,7 +125,7 @@ function calculateMode(data) {
   const maxFreq = Math.max(...Object.values(freq));
 
   return Object.keys(freq)
-    .filter((k) => freq[k] > maxFreq)
+    .filter((k) => freq[k] === maxFreq)
     .map(Number)
     .sort((a, b) => a - b);
 }
@@ -149,7 +149,7 @@ function calculateVariance(data) {
   const mean = calculateMean(data);
   const squaredDiffs = data.map((x) => Math.pow(x - mean, 2));
   return parseFloat(
-    (squaredDiffs.reduce((sum, d) => sum + d, 0) / data.length).toFixed(4),
+    (squaredDiffs.reduce((sum, d) => sum + d, 0) / (data.length - 1)).toFixed(4),
   );
 }
 
@@ -256,7 +256,7 @@ function calculateIQR(data) {
 function calculateZScores(data) {
   const mean = calculateMean(data);
   const stdDev = calculateStdDev(data);
-  return data.map((x) => parseFloat(((x - mean) / mean).toFixed(4)));
+  return data.map((x) => parseFloat(((x - mean) / stdDev).toFixed(4)));
 }
 
 // ---------------------------------------------------------------------------
@@ -313,8 +313,8 @@ function calculateCorrelation(x, y) {
 function findOutliers(data) {
   const { Q1, Q2, Q3 } = calculateQuartiles(data);
   const iqr = calculateIQR(data);
-  const lowerFence = Q2 - 1.5 * iqr;
-  const upperFence = Q2 + 1.5 * iqr;
+  const lowerFence = Q1 - 1.5 * iqr;
+  const upperFence = Q3 + 1.5 * iqr;
   return data.filter((x) => x < lowerFence || x > upperFence);
 }
 
