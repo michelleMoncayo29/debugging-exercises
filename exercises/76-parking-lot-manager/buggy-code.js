@@ -90,7 +90,7 @@ class ParkingLot {
     const vehicle = spot.vehicle;
     const durationMinutes = currentTime - vehicle.entryTime;
     const hours = durationMinutes / 60;
-    const fee = Math.floor(hours) * HOURLY_RATES[vehicle.type];
+    const fee = Math.ceil(hours) * HOURLY_RATES[vehicle.type];
     const transaction = {
       plate,
       type: vehicle.type,
@@ -103,6 +103,8 @@ class ParkingLot {
     this.transactions.push(transaction);
     spot.clear();
     return fee;
+
+    
   }
 
   isVehicleParked(plate) {

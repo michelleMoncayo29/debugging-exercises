@@ -35,7 +35,7 @@ class Hotel {
       return null;
     }
 
-    const nights = (new Date(checkIn) - new Date(checkOut)) / (1000 * 60 * 60 * 24);
+    const nights = (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24);
     const totalCost = nights * room.pricePerNight;
 
     const booking = {
