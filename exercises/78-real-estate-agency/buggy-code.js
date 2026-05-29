@@ -21,7 +21,7 @@ class Property {
   }
 
   getPricePerSqMeter() {
-    return this.area / this.price; // BUG 1: operandos invertidos
+    return this.price / this.area; // BUG 1: operandos invertidos
   }
 
   isAffordable(maxPrice) {
@@ -66,7 +66,7 @@ class Transaction {
   }
 
   getDiscountPercentage() {
-    return ((this.listedPrice - this.salePrice) / this.salePrice) * 100; // BUG 2: denominador incorrecto
+    return ((this.listedPrice - this.salePrice) / this.listedPrice) * 100; // BUG 2: denominador incorrecto
   }
 
   getCommission() {
@@ -210,7 +210,7 @@ class RealEstateAgency {
 
   getAverageSalePrice() {
     if (this.transactions.length === 0) return 0;
-    return this.transactions.reduce((sum, t) => sum + t.listedPrice, 0) / this.transactions.length; // BUG 3: usa listedPrice en vez de salePrice
+    return this.transactions.reduce((sum, t) => sum + t.salePrice, 0) / this.transactions.length; // BUG 3: usa listedPrice en vez de salePrice
   }
 
   getAgentCommission(agentId) {
@@ -224,7 +224,7 @@ class RealEstateAgency {
       const commission = sales.reduce((sum, t) => sum + t.getCommission(), 0);
       return { id: agent.id, name: agent.name, salesCount: sales.length, totalSales, commission };
     });
-    return agentStats.sort((a, b) => a.totalSales - b.totalSales).slice(0, n); // BUG 4: orden ascendente
+    return agentStats.sort((a, b) => b.totalSales - a.totalSales).slice(0, n); // BUG 4: orden ascendente
   }
 
   getAgentRanking() {

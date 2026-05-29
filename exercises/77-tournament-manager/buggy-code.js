@@ -75,7 +75,7 @@ class Tournament {
         acc.goalsAgainst += goalsAgainst;
         if (won) {
           acc.won += 1;
-          acc.points += 2;
+          acc.points += 3;
         } else if (drawn) {
           acc.drawn += 1;
           acc.points += 1;
