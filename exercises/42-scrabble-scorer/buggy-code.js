@@ -33,8 +33,15 @@ function scoreWord(word) {
 function scorePlacement(word, squares) {
   const letters = Array.from(word.toUpperCase());
 
-  // Primero aplica el multiplicador de palabra al puntaje base
-  const baseScore = scoreWord(word);
+  // Luego aplica los multiplicadores individuales de letra sobre el total ya multiplicado
+  const letterScore = letters.reduce((total, letter, idx) => {
+    const square = squares.find(s => s.pos === idx);
+    const baseValue = getLetterValue(letter);
+    if (!square || !square.type) return total + baseValue;
+    if (square.type === 'DL') return total + baseValue * 2;
+    if (square.type === 'TL') return total + baseValue * 3;
+    return total + baseValue;
+  }, 0);
 
   const wordMultiplier = squares.reduce((multiplier, square) => {
     if (square.type === 'DW') return multiplier * 2;
@@ -42,17 +49,7 @@ function scorePlacement(word, squares) {
     return multiplier;
   }, 1);
 
-  // Luego aplica los multiplicadores individuales de letra sobre el total ya multiplicado
-  const letterBonuses = letters.reduce((bonus, letter, idx) => {
-    const square = squares.find(s => s.pos === idx);
-    const baseValue = getLetterValue(letter);
-    if (!square || !square.type) return bonus;
-    if (square.type === 'DL') return bonus + baseValue;
-    if (square.type === 'TL') return bonus + baseValue * 2;
-    return bonus;
-  }, 0);
-
-  return baseScore * wordMultiplier + letterBonuses;
+  return letterScore * wordMultiplier;
 }
 
 // Retorna la palabra con mayor puntaje de una lista
