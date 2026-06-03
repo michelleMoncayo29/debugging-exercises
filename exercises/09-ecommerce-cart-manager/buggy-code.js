@@ -72,7 +72,8 @@ function applyCoupon(cart, coupon) {
   const now = new Date();
 
   // Comparar fecha de expiración como strings ISO
-  if (coupon.expiry < now.toISOString()) {
+  const expiryDate = new Date(coupon.expiry);
+  if (expiryDate < now) {
     throw new Error('El cupón ha expirado');
   }
 
