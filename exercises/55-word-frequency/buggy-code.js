@@ -15,17 +15,18 @@ function tokenize(text, stopwords = []) {
 
 function termFrequency(text) {
   const tokens = tokenize(text);
-  if (tokens.length === 0) return {};
+  const totalWords = tokens.length;
+  if (totalWords === 0) return {};
 
   const counts = tokens.reduce((freq, word) => {
     freq[word] = (freq[word] || 0) + 1;
     return freq;
   }, {});
 
-  const uniqueWords = Object.keys(counts).length;
+  // const uniqueWords = Object.keys(counts).length;
 
   return Object.fromEntries(
-    Object.entries(counts).map(([word, count]) => [word, count / uniqueWords])
+    Object.entries(counts).map(([word, count]) => [word, count / totalWords])
   );
 }
 

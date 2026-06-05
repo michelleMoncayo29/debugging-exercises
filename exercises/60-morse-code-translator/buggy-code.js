@@ -27,7 +27,7 @@ const MORSE_CODE = {
   C: "-.-.",
   D: "-..",
   E: ".",
-  F: "..--",
+  F: "..-.",
   G: "--.",
   H: "....",
   I: "..",
@@ -212,7 +212,7 @@ function validateText(text) {
   const invalidChars = upper
     .split('')
     .filter((ch) => ch !== ' ')
-    .filter((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
+    .filter((ch) => !Object.prototype.hasOwnProperty.call(MORSE_CODE, ch))
     .reduce((acc, ch) => {
       if (!acc.includes(ch)) acc.push(ch);
       return acc;
@@ -246,7 +246,7 @@ function getMorseStats(text) {
   const encoded = encodeText(upper);
 
   // Contar puntos y guiones en la cadena morse completa
-  const dots = encoded.split("").filter((ch) => ch === "-").length;
+  const dots = encoded.split("").filter((ch) => ch === ".").length;
   const dashes = encoded.split("").filter((ch) => ch === "-").length;
 
   // Total de caracteres no-espacio en el texto original
@@ -259,7 +259,7 @@ function getMorseStats(text) {
   }));
 
   const longestWord = wordsWithCount.reduce(
-    (best, current) => (current.count < best.count ? current : best),
+    (best, current) => (current.count > best.count ? current : best),
     wordsWithCount[0],
   ).word;
 
@@ -300,7 +300,7 @@ function sortWordsByMorseLength(words) {
       if (a.count === -1 && b.count === -1) return 0;
       if (a.count === -1) return 1;
       if (b.count === -1) return -1;
-      return a.count - b.count;
+      return b.count - a.count;
     })
     .map((item) => item.word);
 }
@@ -339,7 +339,7 @@ function getMostComplexWord(words) {
   return words.reduce((mostComplex, current) => {
     const currentCount = getMorseSymbolCount(current.toUpperCase());
     const bestCount = getMorseSymbolCount(mostComplex.toUpperCase());
-    return currentCount >= bestCount ? current : mostComplex;
+    return currentCount > bestCount ? current : mostComplex;
   });
 }
 
@@ -365,7 +365,7 @@ function compareMorseComplexity(text1, text2) {
       .filter((ch) => ch === "." || ch === "-").length;
 
   const count1 = countSymbols(text1);
-  const count2 = countSymbols(text1);
+  const count2 = countSymbols(text2);
   const difference = Math.abs(count1 - count2);
 
   if (count1 === count2) {
@@ -401,7 +401,7 @@ function getTopNWords(text, n) {
         .split("")
         .every((ch) => Object.prototype.hasOwnProperty.call(MORSE_CODE, ch)),
     )
-    .sort((a, b) => getMorseSymbolCount(b) - getMorseSymbolCount(a));
+    .sort((a, b) => getMorseSymbolCount(b) - getMorseSymbolCount(a)).slice(0, n);
 }
 
 // ---------------------------------------------------------------------------

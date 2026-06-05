@@ -68,7 +68,8 @@ class Inventory {
 
   calculateReorderPoint(id) {
     const item = this.getItem(id);
-    return item.avgDailyDemand * item.safetyStock + item.leadTimeDays;
+    // return item.avgDailyDemand * item.safetyStock + item.leadTimeDays;
+    return item.avgDailyDemand * item.leadTimeDays + item.safetyStock;
   }
 
   calculateEOQ(id) {

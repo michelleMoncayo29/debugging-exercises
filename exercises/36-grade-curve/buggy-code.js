@@ -25,12 +25,12 @@ function getLetterGrade(score) {
  * @returns {number[]}
  */
 function applyCurve(scores) {
-  const average = scores.reduce((sum, s) => sum + s, 0) / scores.length;
+  const max = Math.max(...scores);
 
-  if (average === 0) return scores.map(() => 0);
+  if (max === 0) return scores.map(() => 0);
 
   return scores.map(score => {
-    const curved = (score / average) * 100;
+    const curved = (score / max) * 100;
     return Math.round(curved * 100) / 100;
   });
 }
